@@ -322,19 +322,23 @@ table {
 }
 
 .brand-mark {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
   overflow: hidden;
-  border: 1.5px solid rgba(200, 160, 46, 0.55);
+  border: 1px solid rgba(200, 160, 46, 0.55);
   flex: none;
   background: var(--c-bianco-puro);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brand-mark img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .brand-text {
@@ -430,6 +434,15 @@ table {
 .nav-open .hamburger span::before { transform: translateY(6px) rotate(45deg); background: var(--c-oro); }
 .nav-open .hamburger span::after { transform: translateY(-6px) rotate(-45deg); background: var(--c-oro); }
 
+.header-motto {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--c-oro-chiaro);
+  font-size: 0.86rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
 /* -- 7. HERO -------------------------------------------------------------- */
 .hero {
   position: relative;
@@ -471,37 +484,54 @@ table {
 .hero-inner {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 40px;
-  padding: 64px 0 84px;
+  text-align: center;
+  padding: 74px 0 90px;
+}
+
+.hero-logo-wrap {
+  position: relative;
+  margin-bottom: 34px;
+}
+
+.hero-logo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 160, 46, 0.28), transparent 68%);
+  filter: blur(2px);
 }
 
 .hero-logo {
-  width: 118px;
-  height: 118px;
-  border-radius: 50%;
+  position: relative;
+  width: 108px;
+  height: 108px;
+  border-radius: 20px;
   overflow: hidden;
-  border: 2px solid var(--c-oro);
+  border: 1.5px solid var(--c-oro);
   box-shadow: var(--shadow-oro);
-  margin-bottom: 30px;
   background: var(--c-bianco-puro);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-logo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  line-height: 0.98;
-  letter-spacing: -0.01em;
-  max-width: 15ch;
+  font-weight: 700;
+  font-size: clamp(3rem, 9vw, 6.4rem);
+  line-height: 0.96;
+  letter-spacing: 0.01em;
   background: linear-gradient(120deg, #ffffff 35%, var(--c-oro-chiaro) 65%, var(--c-oro) 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -511,23 +541,46 @@ table {
 .hero-subtitle {
   font-family: var(--font-sport);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  letter-spacing: 0.14em;
+  font-size: clamp(0.86rem, 1.6vw, 1.05rem);
   color: var(--c-testo-chiaro);
-  margin-top: 22px;
-  max-width: 42ch;
+  margin-top: 14px;
   font-weight: 400;
+}
+
+.hero-motto {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  color: var(--c-oro-chiaro);
+  margin-top: 34px;
+  position: relative;
+  padding-bottom: 22px;
+}
+
+.hero-motto::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--c-oro), transparent);
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
-  margin-top: 40px;
+  margin-top: 36px;
 }
 
 .hero-stats {
   display: flex;
+  justify-content: center;
   gap: 34px;
   margin-top: 58px;
   flex-wrap: wrap;
@@ -727,6 +780,94 @@ section {
   background: linear-gradient(var(--c-oro), transparent);
 }
 
+.og-gruppo-titolo {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.66rem;
+  color: var(--c-testo-muto);
+  margin-top: 12px;
+}
+
+.og-card--membro {
+  min-width: 180px;
+  padding: 20px 24px;
+  background: transparent;
+  border-style: dashed;
+}
+
+/* -- 10b. ACCESSO RAPIDO ------------------------------------------------------*/
+.accesso-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.accesso-card {
+  background: var(--c-bianco-puro);
+  border-radius: var(--radius-m);
+  padding: 30px 26px;
+  border: 1px solid rgba(9, 12, 22, 0.07);
+  box-shadow: var(--shadow-s);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.accesso-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-m);
+  border-color: rgba(200, 160, 46, 0.4);
+}
+
+.accesso-icona {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, var(--c-notte-2), var(--c-antracite-2));
+  border: 1px solid var(--c-oro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-oro-chiaro);
+  flex: none;
+}
+
+.accesso-icona svg { width: 24px; height: 24px; }
+
+.accesso-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  margin-top: 20px;
+}
+
+.accesso-card p {
+  font-size: 0.9rem;
+  color: var(--c-testo-scuro-muto);
+  line-height: 1.55;
+  margin-top: 10px;
+  flex-grow: 1;
+}
+
+.accesso-link {
+  margin-top: 20px;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--c-oro-scuro);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.accesso-card:hover .accesso-link {
+  gap: 12px;
+  color: var(--c-oro);
+}
+
 /* -- 11. CTA FINALE --------------------------------------------------------*/
 .cta-banner {
   background: linear-gradient(120deg, var(--c-oro-scuro), var(--c-oro) 55%, var(--c-oro-chiaro));
@@ -778,10 +919,13 @@ section {
 }
 
 .footer-brand img {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   border: 1px solid rgba(200, 160, 46, 0.5);
+  background: var(--c-bianco-puro);
+  padding: 3px;
+  object-fit: contain;
 }
 
 .footer-brand strong {
@@ -858,16 +1002,19 @@ section {
 }
 
 @media (max-width: 860px) {
-  .main-nav { display: none; }
-  .header-cta .btn { display: none; }
+  .header-cta .btn,
+  .header-motto { display: none; }
   .hamburger { display: inline-flex; }
 
-  .main-nav.mobile-menu {
-    display: flex;
+  /* Un solo <nav class="main-nav"> nel markup: su mobile diventa overlay
+     a schermo intero, mostrato/nascosto tramite .nav-open sul <body>. */
+  .main-nav {
     position: fixed;
     inset: 0;
+    top: var(--header-h);
     background: var(--c-notte);
     z-index: 550;
+    display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
@@ -875,18 +1022,18 @@ section {
     transition: opacity 0.35s ease;
   }
 
-  .nav-open .main-nav.mobile-menu {
+  .nav-open .main-nav {
     opacity: 1;
     visibility: visible;
   }
 
-  .main-nav.mobile-menu ul {
+  .main-nav ul {
     flex-direction: column;
     text-align: center;
     gap: 8px;
   }
 
-  .main-nav.mobile-menu a {
+  .main-nav a {
     font-size: 1.4rem;
     padding: 14px 30px;
   }
@@ -895,6 +1042,7 @@ section {
   .hero-sigillo { display: none; }
   .og-card--presidente { min-width: 0; width: 100%; }
   .cta-banner { flex-direction: column; align-items: flex-start; }
+  .accesso-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 620px) {
@@ -903,6 +1051,8 @@ section {
   .footer-grid { grid-template-columns: 1fr; gap: 34px; }
   .og-riga { flex-direction: column; align-items: center; }
   .cta-banner { padding: 38px 26px; }
+  .accesso-grid { grid-template-columns: 1fr; }
+  .hero-motto { font-size: 1.4rem; }
 }
 
 /* ==========================================================================
@@ -1147,70 +1297,30 @@ section {
   line-height: 1.6;
 }
 
-/* -- 18. RIEPILOGO CAMBI ------------------------------------------------------*/
-.dash-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-bottom: 44px;
+/* -- 18. RIEPILOGO CAMBI (dashboard collegata all'API Apps Script) -----------*/
+.cambi-section {
+  background: linear-gradient(180deg, var(--c-notte-2), var(--c-antracite) 100%);
+  color: var(--c-bianco-puro);
 }
 
-.dash-stat {
-  background: var(--c-bianco-puro);
-  border-radius: var(--radius-m);
-  padding: 26px;
-  box-shadow: var(--shadow-s);
-  border: 1px solid rgba(9,12,22,0.06);
-}
-
-.dash-stat .eyebrow { margin-bottom: 14px; }
-
-.dash-stat strong {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  display: block;
-}
-
-.dash-stat small {
-  font-family: var(--font-sport);
-  font-size: 0.72rem;
-  color: var(--c-testo-scuro-muto);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.dash-panel {
-  background: var(--c-bianco-puro);
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow-s);
-  border: 1px solid rgba(9,12,22,0.06);
-  overflow: hidden;
-}
-
-.dash-panel-head {
+.dash-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 26px 30px;
-  border-bottom: 1px solid rgba(9,12,22,0.07);
   flex-wrap: wrap;
-  gap: 14px;
-}
-
-.dash-panel-head h3 {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
+  gap: 18px;
+  margin-bottom: 44px;
 }
 
 .dash-aggiornamento {
   font-family: var(--font-sport);
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--c-testo-scuro-muto);
+  color: var(--c-testo-muto);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
 }
 
 .dash-aggiornamento .puntino {
@@ -1219,68 +1329,199 @@ section {
   border-radius: 50%;
   background: var(--c-verde-chiaro);
   box-shadow: 0 0 0 4px rgba(46, 168, 107, 0.18);
+  flex: none;
 }
 
-table.cambi-tabella {
+.dash-aggiornamento.stato-errore .puntino {
+  background: var(--c-rosso);
+  box-shadow: 0 0 0 4px rgba(196, 34, 44, 0.18);
+}
+
+.dash-aggiornamento.stato-caricamento .puntino {
+  background: var(--c-oro-chiaro);
+  box-shadow: 0 0 0 4px rgba(200, 160, 46, 0.18);
+  animation: puntino-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes puntino-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.btn-aggiorna {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-aggiorna svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.5s ease;
+}
+
+.btn-aggiorna.is-loading svg {
+  animation: girare-icona 0.9s linear infinite;
+}
+
+@keyframes girare-icona {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* stato: caricamento */
+.dash-stato {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 90px 20px;
+  gap: 20px;
+}
+
+.dash-stato.is-visibile { display: flex; }
+
+.dash-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid rgba(200, 160, 46, 0.2);
+  border-top-color: var(--c-oro);
+  animation: girare-icona 0.8s linear infinite;
+}
+
+.dash-stato p {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86rem;
+  color: var(--c-testo-muto);
+}
+
+.dash-stato--errore p {
+  color: var(--c-bianco-puro);
+  font-family: var(--font-body);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1rem;
+  max-width: 44ch;
+}
+
+.dash-stato--errore .eyebrow { color: var(--c-rosso); }
+
+/* griglia squadre */
+.squadre-cambi-grid {
+  display: none;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.squadre-cambi-grid.is-visibile { display: grid; }
+
+.cambi-card {
+  background: var(--c-antracite);
+  border: 1px solid var(--c-bordo-scuro);
+  border-radius: var(--radius-m);
+  padding: 26px 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cambi-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--c-oro);
+}
+
+.cambi-card .cambi-squadra {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--c-bianco-puro);
+  line-height: 1.2;
+}
+
+.cambi-card .cambi-allenatore {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  color: var(--c-testo-muto);
+  margin-top: 6px;
+}
+
+.cambi-card .cambi-riga {
   width: 100%;
+  height: 1px;
+  background: rgba(247, 246, 242, 0.1);
+  margin: 18px 0;
 }
 
-.cambi-tabella th,
-.cambi-tabella td {
-  text-align: left;
-  padding: 16px 30px;
-  font-size: 0.94rem;
+.cambi-effettuati-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 }
 
-.cambi-tabella thead th {
+.cambi-effettuati-row .label {
   font-family: var(--font-sport);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  font-size: 0.68rem;
-  color: var(--c-testo-scuro-muto);
-  border-bottom: 1px solid rgba(9,12,22,0.08);
+  font-size: 0.66rem;
+  color: var(--c-testo-muto);
 }
 
-.cambi-tabella tbody tr {
-  border-bottom: 1px solid rgba(9,12,22,0.05);
-  transition: background 0.2s ease;
+.cambi-effettuati-row .valore {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--c-testo-chiaro);
 }
 
-.cambi-tabella tbody tr:hover { background: rgba(200,160,46,0.05); }
-.cambi-tabella tbody tr:last-child { border-bottom: none; }
+.cambi-rimasti-blocco {
+  margin-top: 20px;
+  text-align: center;
+  background: rgba(200, 160, 46, 0.08);
+  border: 1px solid rgba(200, 160, 46, 0.25);
+  border-radius: var(--radius-s);
+  padding: 16px 10px;
+}
 
-.cambi-tabella td.numero { font-family: var(--font-display); font-size: 1.05rem; }
-
-.badge-disponibili {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.cambi-rimasti-blocco .label {
   font-family: var(--font-sport);
-  font-size: 0.76rem;
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  background: rgba(27, 122, 76, 0.1);
-  color: var(--c-verde);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  color: var(--c-oro-chiaro);
 }
 
-.badge-disponibili.basso {
-  background: rgba(196, 34, 44, 0.1);
-  color: var(--c-rosso);
+.cambi-rimasti-blocco .valore {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  color: var(--c-oro-chiaro);
+  line-height: 1.1;
+  margin-top: 4px;
 }
+
+.cambi-rimasti-blocco.basso {
+  background: rgba(196, 34, 44, 0.1);
+  border-color: rgba(196, 34, 44, 0.3);
+}
+
+.cambi-rimasti-blocco.basso .label,
+.cambi-rimasti-blocco.basso .valore { color: #e8757c; }
 
 .dash-nota {
-  margin-top: 30px;
+  margin-top: 40px;
   padding: 20px 24px;
   border-radius: var(--radius-m);
-  border: 1px dashed rgba(9,12,22,0.18);
+  border: 1px dashed rgba(247, 246, 242, 0.2);
   font-size: 0.86rem;
-  color: var(--c-testo-scuro-muto);
+  color: var(--c-testo-muto);
   display: flex;
   gap: 12px;
   align-items: flex-start;
 }
 
-.dash-nota strong { color: var(--c-testo-scuro); }
+.dash-nota strong { color: var(--c-bianco-puro); }
 
 /* -- 19. GAZZETTA DEL MAINE ---------------------------------------------------*/
 .gazzetta-testata {
@@ -1513,7 +1754,7 @@ table.cambi-tabella {
 @media (max-width: 980px) {
   .squadre-grid { grid-template-columns: repeat(2, 1fr); }
   .indice-grid { grid-template-columns: 1fr 1fr; }
-  .dash-grid { grid-template-columns: 1fr 1fr; }
+  .squadre-cambi-grid { grid-template-columns: 1fr 1fr; }
   .giornale-grid { grid-template-columns: 1fr; }
   .fasce-grid { grid-template-columns: 1fr; }
   .doc-card { flex-direction: column; text-align: center; }
@@ -1522,8 +1763,8 @@ table.cambi-tabella {
 @media (max-width: 620px) {
   .squadre-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
   .indice-grid { grid-template-columns: 1fr; }
-  .dash-grid { grid-template-columns: 1fr 1fr; }
-  .cambi-tabella th, .cambi-tabella td { padding: 12px 16px; font-size: 0.84rem; }
+  .squadre-cambi-grid { grid-template-columns: 1fr; }
+  .dash-toolbar { flex-direction: column; align-items: flex-start; }
   .testo-colonne { column-count: 1; }
   .testata-riga span:last-child { display: none; }
   .doc-card { padding: 32px 22px; }
@@ -1531,5 +1772,4 @@ table.cambi-tabella {
 
 @media (max-width: 420px) {
   .squadre-grid { grid-template-columns: 1fr; }
-  .dash-grid { grid-template-columns: 1fr; }
 }
