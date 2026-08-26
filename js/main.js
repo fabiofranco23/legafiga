@@ -126,21 +126,30 @@ function initCambiDashboard() {
     impostaIndicatore("stato-caricamento", "Caricamento dati…");
     bottoniAggiorna.forEach(function (b) { b.classList.add("is-loading"); });
 
-    fetch(CAMBI_API_URL)
+    // cache-busting esplicito: ogni click su "Aggiorna" deve arrivare
+    // davvero all'API, non a una risposta GET messa in cache dal browser.
+    var url = CAMBI_API_URL + "?t=" + Date.now();
+
+    fetch(url, { method: "GET", mode: "cors", cache: "no-store" })
       .then(function (risposta) {
-        if (!risposta.ok) throw new Error("Risposta API non valida");
+        if (!risposta.ok) {
+          throw new Error("HTTP " + risposta.status + " " + risposta.statusText);
+        }
         return risposta.json();
       })
       .then(function (json) {
         if (!json || json.success !== true || !Array.isArray(json.data)) {
-          throw new Error("Formato dati non atteso");
+          throw new Error("Formato JSON inatteso: " + JSON.stringify(json).slice(0, 200));
         }
         renderizzaSquadre(json.data, griglia);
         elStagione.forEach(function (el) { el.textContent = json.stagione || "—"; });
         impostaIndicatore(null, "Ultimo aggiornamento: " + formattaData(json.ultimoAggiornamento));
         mostraStato("dati");
       })
-      .catch(function () {
+      .catch(function (errore) {
+        // L'errore reale non va mai nascosto: resta in console per il debug,
+        // mentre l'interfaccia mostra un messaggio semplice all'utente.
+        console.error("[F.I.G.A. — Riepilogo Cambi] Chiamata API fallita:", errore);
         impostaIndicatore("stato-errore", "Impossibile aggiornare i dati.");
         mostraStato("errore");
       })
