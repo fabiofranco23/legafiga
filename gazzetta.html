@@ -72,80 +72,17 @@
 
   <section class="giornale-layout">
     <div class="container">
-      <div class="giornale-grid">
 
-        <div class="reveal">
-          <article class="articolo-principale">
-            <span class="kicker">Apertura</span>
-            <h2>L'asta è alle porte: la Federazione si prepara al giorno più lungo</h2>
-            <p class="sommario">Otto fantallenatori, trecento fantamilioni a testa e un Battitore pronto a scandire l'ormai celebre formula "e 1… e 2… e 3!!!". Tutto pronto per l'atto inaugurale della stagione 2026-27.</p>
-
-            <div class="testo-colonne">
-              <p>Manca poco all'asta iniziale, l'evento che la Federazione considera a tutti gli effetti l'atto di nascita della nuova stagione sportiva. Presidente e Giunta hanno già definito l'ordine alfabetico dei reparti e il sorteggio per la chiamata degli attaccanti, nel rispetto rigoroso dei tempi tecnici previsti dallo Statuto.</p>
-              <p>Le otto squadre si presentano ai nastri di partenza con obiettivi molto diversi tra loro: chi punta al bis in Serie A-no, chi vuole finalmente issare al cielo la Coppa dei CampiAni, e chi — più semplicemente — spera di evitare la bancarotta prima ancora di aver completato il reparto portieri.</p>
-              <p>La Redazione seguirà l'intera giornata con aggiornamenti in tempo reale, comunicati ufficiali e, immancabilmente, le prime polemiche di stagione.</p>
-            </div>
-
-            <p class="articolo-firma">Sala Stampa FIGA</p>
-          </article>
-
-          <article class="reveal">
-            <span class="rubrica-titolo">Editoriale</span>
-            <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 10px;">Il caos, organizzato: perché la FIGA funziona proprio così</h3>
-            <p style="color: var(--c-testo-scuro-muto); line-height: 1.7; max-width: 68ch;">Non esiste federazione senza un pizzico di anarchia controllata. È il paradosso che tiene in vita la Lega dal 2009: regole scritte con precisione notarile, applicate con lo spirito di chi sa che la vera classifica, in fondo, si scrive al bar.</p>
-          </article>
-        </div>
-
-        <aside class="reveal">
-          <div class="ultimora">
-            <span class="tag">Ultim'ora</span>
-            <p>La Giunta conferma: la data dell'asta iniziale sarà comunicata a breve sul gruppo ufficiale "Capra Bellicosa".</p>
-          </div>
-
-          <span class="rubrica-titolo">Mercato</span>
-          <div class="breve">
-            <span class="kicker">Trattative</span>
-            <h4>Prime voci di scambio tra Laennister e River Plaza</h4>
-            <p>Nulla di ufficiale, ma in Federazione se ne parla già.</p>
-          </div>
-          <div class="breve">
-            <span class="kicker">Fair play finanziario</span>
-            <h4>Occhio alla base minima d'asta: un fantamilione non basta più</h4>
-            <p>La Redazione ricorda l'articolo 70 a chi punta a fare l'affare last minute.</p>
-          </div>
-
-          <span class="rubrica-titolo" style="margin-top: 34px; display:block;">Polemiche &amp; disciplina</span>
-          <div class="breve">
-            <span class="kicker">Commissario Disciplinare</span>
-            <h4>Nessun provvedimento all'orizzonte, per ora</h4>
-            <p>La stagione non è nemmeno iniziata, ma la Federazione vigila comunque.</p>
-          </div>
-          <div class="breve" style="border-bottom: none;">
-            <span class="kicker">Comunicati</span>
-            <h4>La Giunta ricorda le scadenze per la consegna delle formazioni</h4>
-            <p>Chi arriva tardi, si tiene la formazione della giornata precedente.</p>
-          </div>
-        </aside>
-
+      <span class="rubrica-titolo">Articolo in evidenza</span>
+      <div class="gazzetta-evidenza reveal" data-gazzetta-evidenza>
+        <!-- Popolato da js/news.js a partire da js/news-data.js -->
       </div>
 
-      <div class="fasce-grid">
-        <div class="fascia-card oro reveal">
-          <span class="kicker">Statuto</span>
-          <h4>Nuova stagione, stesse regole</h4>
-          <p>Il Regolamento 2026-27 conferma l'impianto tecnico della scorsa stagione, con qualche ritocco nelle competizioni accessorie.</p>
-        </div>
-        <div class="fascia-card rosa reveal">
-          <span class="kicker">Sala Stampa</span>
-          <h4>La Gazzetta cerca collaboratori</h4>
-          <p>Chi volesse contribuire con articoli, pagelle o retroscena può proporsi ai canali ufficiali della Federazione.</p>
-        </div>
-        <div class="fascia-card verde reveal">
-          <span class="kicker">Calendario</span>
-          <h4>Si avvicina la Supercoppa degli ItaliAni</h4>
-          <p>Gara secca d'apertura tra il Campione in carica e il vincitore della Coppa degli ItaliAni.</p>
-        </div>
+      <span class="rubrica-titolo">Ultime news</span>
+      <div class="news-grid" data-gazzetta-news style="margin-top: 20px;">
+        <!-- Popolato da js/news.js a partire da js/news-data.js -->
       </div>
+
     </div>
   </section>
 
@@ -195,11 +132,16 @@
 
     <div class="footer-bottom">
       <span>© 2026 F.I.G.A. — Federazione Italiana Giuoco Ani. Stagione 2026-27.</span>
-      <span class="motto">"C'è solo un Presidente"</span>
+      <span class="motto-blocco">
+        <span class="motto">"C'è solo un Presidente"</span>
+        <span class="motto-label">Motto ufficiale della lega F.I.G.A.</span>
+      </span>
     </div>
   </div>
 </footer>
 
+<script src="js/news-data.js"></script>
+<script src="js/news.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
