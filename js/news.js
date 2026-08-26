@@ -16,7 +16,7 @@ function figaCardNews(n) {
   var tagEvidenza = n.evidenza ? '<span class="news-tag-evidenza">In evidenza</span>' : "";
 
   var azione = linkApertura
-    ? '<a href="' + linkApertura + '" class="news-link">Leggi l\'articolo →</a>'
+    ? '<span class="news-link">Leggi l\'articolo →</span>'
     : '<span class="news-link news-link--statica">Comunicato ufficiale</span>';
 
   var wrapperStart = linkApertura ? '<a href="' + linkApertura + '" class="news-card">' : '<article class="news-card">';
@@ -26,12 +26,12 @@ function figaCardNews(n) {
     wrapperStart +
       '<div class="news-card-head">' +
         '<span class="news-categoria">' + n.categoria + '</span>' +
+        (n.data ? '<span class="news-data">' + n.data + '</span>' : "") +
         tagEvidenza +
       '</div>' +
       '<h3 class="news-titolo">' + n.titolo + '</h3>' +
       '<p class="news-estratto">' + n.estratto + '</p>' +
       '<div class="news-card-foot">' +
-        '<span class="news-data">' + (n.data || "") + '</span>' +
         azione +
       '</div>' +
     wrapperEnd
@@ -43,7 +43,7 @@ function renderHomeNews() {
   var contenitore = document.querySelector("[data-home-news]");
   if (!contenitore) return;
 
-  var recenti = FIGA_NEWS.filter(function (n) { return n.tipo === "news"; }).slice(0, 4);
+  var recenti = FIGA_NEWS.filter(function (n) { return n.tipo === "news"; }).slice(0, 3);
   contenitore.innerHTML = recenti.map(figaCardNews).join("");
 }
 

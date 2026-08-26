@@ -29,9 +29,9 @@ var FIGA_NEWS = [
     categoria: "Speciale 18° Anniversario",
     titolo: "Diciottesimo Interludio",
     occhiello: "Speciale 18° anniversario della F.I.G.A.",
-    data: "Speciale 18° anniversario",
+    data: null,
     autore: "Mike Hanlon",
-    estratto: "\u201cSe dico F.I.G.A., qual è la prima immagine che ti viene in mente?\u201d Il racconto celebrativo dei diciotto anni della Federazione, tra ricordi d'estate e il giorno dell'asta.",
+    estratto: "\u00abSe dico F.I.G.A., qual è la prima immagine che ti viene in mente?\u00bb",
     evidenza: true,
     pdf: null,
     contenuto: [

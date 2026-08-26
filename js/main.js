@@ -74,7 +74,19 @@ function initReveal() {
     { threshold: 0.16, rootMargin: "0px 0px -40px 0px" }
   );
 
-  elementi.forEach(function (el) { observer.observe(el); });
+  elementi.forEach(function (el) {
+    // Gli elementi già dentro la viewport al caricamento vengono rivelati
+    // subito, in modo sincrono: senza questo controllo il contenuto sopra
+    // la piega dipenderebbe dal primo "tick" asincrono dell'Observer e
+    // rischierebbe un istante di invisibilità (o di restare invisibile
+    // in strumenti che catturano la pagina prima di quel tick).
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add("is-visible");
+    } else {
+      observer.observe(el);
+    }
+  });
 }
 
 /* ==========================================================================
