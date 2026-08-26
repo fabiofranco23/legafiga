@@ -10,6 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
   initCambiDashboard();
 });
 
+/* URL ufficiale e definitivo dell'API Google Apps Script della F.I.G.A.
+   Restituisce solo dati pubblici (squadra, fantallenatore, cambi) — nessuna
+   credenziale, token o contenuto email è mai esposto qui o nel resto del sito. */
+var CAMBI_API_URL = "https://script.google.com/macros/s/AKfycbzdgQ3DSIlVnI4ze-Fb6wP3Wuir5hBo_v_LuzFoJqEwJ-mUMUxGq7gylBgR2cUaD-UR/exec";
+
 /* -- Header: ombra/sfondo più marcato dopo lo scroll ------------------------ */
 function initHeader() {
   var header = document.querySelector(".site-header");
@@ -73,94 +78,117 @@ function initReveal() {
 }
 
 /* ==========================================================================
-   RIEPILOGO CAMBI — dashboard
+   RIEPILOGO CAMBI — dashboard collegata all'API Google Apps Script
    --------------------------------------------------------------------------
-   Dati segnaposto in attesa del collegamento al Google Sheet ufficiale.
-   Quando l'integrazione sarà pronta, sostituire semplicemente la funzione
-   caricaDatiCambi() con una chiamata reale (es. fetch verso l'endpoint del
-   Google Sheet pubblicato), mantenendo la stessa struttura dell'oggetto dati
-   restituito: { stagione, aggiornamento, squadre: [...] }.
+   Nessun dato è scritto a mano qui: ad ogni caricamento (e ad ogni click su
+   "Aggiorna") la pagina interroga CAMBI_API_URL e mostra la risposta reale.
+   Il sito legge SOLO questa API pubblica: non accede in alcun modo al
+   Google Sheet, a Gmail o a credenziali di alcun tipo.
    ========================================================================== */
 function initCambiDashboard() {
-  var tabellaBody = document.querySelector("[data-cambi-tabella]");
-  if (!tabellaBody) return; // non siamo nella pagina cambi.html
+  var griglia = document.querySelector("[data-cambi-griglia]");
+  if (!griglia) return; // non siamo nella pagina cambi.html
 
-  var dati = caricaDatiCambi();
-
-  popolaStatistiche(dati);
-  popolaTabella(dati, tabellaBody);
-}
-
-function caricaDatiCambi() {
-  // Dati segnaposto (PLACEHOLDER) — chiaramente identificabili come demo.
-  // Cambi totali di riferimento: art. 71 del Regolamento FIGA (25 o 30 a
-  // seconda della data di inizio stagione). Qui si ipotizzano 30 cambi totali.
-  return {
-    stagione: "2026-27",
-    aggiornamento: "Dati dimostrativi — in attesa del collegamento al Google Sheet",
-    cambiTotali: 30,
-    squadre: [
-      { squadra: "Shakhtar dD", allenatore: "Giuseppe", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "S-O- Tagliapietre", allenatore: "Dario pollo", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "Derry Maine", allenatore: "Andrea", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "Laennister", allenatore: "Fabio", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "River Plaza", allenatore: "Mauro", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "LaughTale", allenatore: "Scafo", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "Dnipork", allenatore: "riccardo", cambiUsati: 0, cambiTotali: 30 },
-      { squadra: "Aston Pirla", allenatore: "Marco", cambiUsati: 0, cambiTotali: 30 }
-    ]
-  };
-}
-
-function popolaStatistiche(dati) {
-  var elStagione = document.querySelector("[data-stat-stagione]");
+  var elCaricamento = document.querySelector("[data-stato-caricamento]");
+  var elErrore = document.querySelector("[data-stato-errore]");
   var elAggiornamento = document.querySelector("[data-stat-aggiornamento]");
-  var elDisponibili = document.querySelector("[data-stat-disponibili]");
-  var elEffettuati = document.querySelector("[data-stat-effettuati]");
+  var elStagione = document.querySelectorAll("[data-stat-stagione]");
+  var bottoniAggiorna = document.querySelectorAll("[data-btn-aggiorna]");
 
-  var totaleDisponibili = 0;
-  var totaleEffettuati = 0;
+  function mostraStato(stato) {
+    griglia.classList.toggle("is-visibile", stato === "dati");
+    if (elCaricamento) elCaricamento.classList.toggle("is-visibile", stato === "caricamento");
+    if (elErrore) elErrore.classList.toggle("is-visibile", stato === "errore");
+  }
 
-  dati.squadre.forEach(function (s) {
-    totaleDisponibili += (s.cambiTotali - s.cambiUsati);
-    totaleEffettuati += s.cambiUsati;
+  function impostaIndicatore(stato, testo) {
+    if (!elAggiornamento) return;
+    elAggiornamento.classList.remove("stato-caricamento", "stato-errore");
+    if (stato) elAggiornamento.classList.add(stato);
+    var span = elAggiornamento.querySelector("[data-aggiornamento-testo]");
+    if (span) span.textContent = testo;
+  }
+
+  function formattaData(isoString) {
+    try {
+      var d = new Date(isoString);
+      return d.toLocaleString("it-IT", {
+        day: "2-digit", month: "2-digit", year: "numeric",
+        hour: "2-digit", minute: "2-digit"
+      });
+    } catch (e) {
+      return isoString;
+    }
+  }
+
+  function caricaDati() {
+    mostraStato("caricamento");
+    impostaIndicatore("stato-caricamento", "Caricamento dati…");
+    bottoniAggiorna.forEach(function (b) { b.classList.add("is-loading"); });
+
+    fetch(CAMBI_API_URL)
+      .then(function (risposta) {
+        if (!risposta.ok) throw new Error("Risposta API non valida");
+        return risposta.json();
+      })
+      .then(function (json) {
+        if (!json || json.success !== true || !Array.isArray(json.data)) {
+          throw new Error("Formato dati non atteso");
+        }
+        renderizzaSquadre(json.data, griglia);
+        elStagione.forEach(function (el) { el.textContent = json.stagione || "—"; });
+        impostaIndicatore(null, "Ultimo aggiornamento: " + formattaData(json.ultimoAggiornamento));
+        mostraStato("dati");
+      })
+      .catch(function () {
+        impostaIndicatore("stato-errore", "Impossibile aggiornare i dati.");
+        mostraStato("errore");
+      })
+      .finally(function () {
+        bottoniAggiorna.forEach(function (b) { b.classList.remove("is-loading"); });
+      });
+  }
+
+  function renderizzaSquadre(squadre, contenitore) {
+    contenitore.innerHTML = "";
+
+    // Ordine ufficiale della Lega: si mantiene l'ordine restituito dall'API,
+    // senza alcun riordino alfabetico.
+    squadre.forEach(function (s) {
+      var soglia = (s.cambiIniziali || 0) * 0.2;
+      var classeBlocco = s.cambiRimasti <= soglia ? "cambi-rimasti-blocco basso" : "cambi-rimasti-blocco";
+
+      var card = document.createElement("article");
+      card.className = "cambi-card";
+      card.innerHTML =
+        '<div class="cambi-squadra">' + s.squadra + '</div>' +
+        '<div class="cambi-allenatore">' + s.fantallenatore + '</div>' +
+        '<div class="cambi-riga"></div>' +
+        '<div class="cambi-effettuati-row">' +
+          '<span class="label">Cambi effettuati</span>' +
+          '<span class="valore">' + s.cambiEffettuati + '</span>' +
+        '</div>' +
+        '<div class="' + classeBlocco + '">' +
+          '<span class="label">Cambi rimasti</span>' +
+          '<span class="valore">' + s.cambiRimasti + '</span>' +
+        '</div>';
+
+      contenitore.appendChild(card);
+    });
+  }
+
+  bottoniAggiorna.forEach(function (b) {
+    b.addEventListener("click", caricaDati);
   });
 
-  if (elStagione) elStagione.textContent = dati.stagione;
-  if (elAggiornamento) elAggiornamento.textContent = dati.aggiornamento;
-  if (elDisponibili) elDisponibili.textContent = totaleDisponibili;
-  if (elEffettuati) elEffettuati.textContent = totaleEffettuati;
-}
-
-function popolaTabella(dati, tabellaBody) {
-  tabellaBody.innerHTML = "";
-
-  dati.squadre.forEach(function (s) {
-    var residui = s.cambiTotali - s.cambiUsati;
-    var soglia = s.cambiTotali * 0.2;
-    var classeBadge = residui <= soglia ? "badge-disponibili basso" : "badge-disponibili";
-
-    var riga = document.createElement("tr");
-    riga.innerHTML =
-      '<td>' + s.squadra + '</td>' +
-      '<td>' + s.allenatore + '</td>' +
-      '<td class="numero">' + s.cambiUsati + '</td>' +
-      '<td><span class="' + classeBadge + '">' + residui + ' disponibili</span></td>';
-
-    tabellaBody.appendChild(riga);
-  });
+  caricaDati();
 }
 
 /* ==========================================================================
-   ARCHITETTURA FUTURA (non implementata)
+   ARCHITETTURA (già in produzione)
    --------------------------------------------------------------------------
-   Il sistema automatico leggerà le email in arrivo da:
-     fabiofranco23@gmail.com
-   inviate da:
-     federazioneitalianagiuocoani09@gmail.com
-   (in fase di test anche da fabiofranco233@gmail.com)
-   con oggetto contenente la parola "MERCATO", riconoscerà il fantallenatore
-   (anche tramite alias), aggiornerà il Google Sheet e, di conseguenza,
-   questa pagina. Il modulo caricaDatiCambi() sopra è il punto di innesto
-   previsto per quella futura integrazione.
+   Gmail → Google Apps Script → Google Sheet → doGet() → JSON API (CAMBI_API_URL)
+   Il frontend qui sopra si occupa solo di leggere quell'API pubblica.
+   Nessuna parte di questo repository contiene password, token, credenziali
+   Google, dati Gmail, alias o contenuti delle email di mercato.
    ========================================================================== */
