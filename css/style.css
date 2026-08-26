@@ -495,60 +495,44 @@ table {
 .hero-inner {
   position: relative;
   z-index: 2;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: center;
-  gap: 40px;
-  padding: 84px 0;
+  max-width: 720px;
+  padding: 76px 0 84px;
 }
 
-.hero-eyebrow {
-  margin-bottom: 18px;
-}
-
-.hero-logo-col {
+.hero-brand-row {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 18px;
 }
 
-.hero-logo-wrap {
-  position: relative;
-}
-
-.hero-logo-wrap::before {
-  content: "";
-  position: absolute;
-  inset: -14%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 160, 46, 0.24), transparent 68%);
-  filter: blur(2px);
-}
-
-.hero-logo {
-  position: relative;
-  width: clamp(220px, 22vw, 300px);
-  height: clamp(220px, 22vw, 300px);
-  border-radius: 28px;
+.hero-logo-small {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 13px;
   overflow: hidden;
   border: 1.5px solid var(--c-oro);
-  box-shadow: var(--shadow-oro);
   background: var(--c-bianco-puro);
-  padding: 8%;
+  padding: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.hero-logo img {
+.hero-logo-small img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
+.hero-eyebrow {
+  margin-bottom: 10px;
+}
+
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(3.4rem, 6.4vw, 5.6rem);
+  font-size: clamp(2.8rem, 5.6vw, 4.6rem);
   line-height: 0.96;
   letter-spacing: 0.01em;
   background: linear-gradient(120deg, #ffffff 35%, var(--c-oro-chiaro) 65%, var(--c-oro) 100%);
@@ -1095,8 +1079,7 @@ section {
     padding: 14px 30px;
   }
 
-  .hero-inner { grid-template-columns: 1fr; padding-bottom: 64px; text-align: center; }
-  .hero-logo-col { order: -1; margin-bottom: 8px; }
+  .hero-inner { padding-bottom: 56px; }
   .hero-actions { justify-content: center; }
   .hero-stats { justify-content: center; }
   .hero-sigillo { display: none; }
@@ -1113,6 +1096,8 @@ section {
   .cta-banner { padding: 38px 26px; }
   .accesso-grid { grid-template-columns: 1fr; }
   .hero-motto { font-size: 1.4rem; }
+  .hero-logo-small { width: 40px; height: 40px; border-radius: 10px; }
+  .hero-brand-row { gap: 12px; }
 }
 
 /* ==========================================================================
@@ -1849,11 +1834,12 @@ section {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(1100px, 140vw);
+  width: min(760px, 90vw);
   transform: translate(-50%, -50%);
-  opacity: 0.05;
+  opacity: 0.035;
   pointer-events: none;
   filter: grayscale(1);
+  z-index: 0;
 }
 
 .anniversario-inner {
@@ -1989,7 +1975,7 @@ section {
 
 .timeline-linea {
   position: absolute;
-  top: 11px;
+  top: 0;
   left: 4%;
   right: 4%;
   height: 1px;
@@ -2005,21 +1991,24 @@ section {
 
 .timeline-tappa {
   text-align: center;
-  padding-top: 30px;
+  padding: 34px 18px 24px;
   position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(200, 160, 46, 0.16);
+  border-radius: var(--radius-m);
 }
 
 .timeline-tappa::before {
   content: "";
   position: absolute;
-  top: 0;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: var(--c-oro);
-  box-shadow: 0 0 0 4px rgba(200, 160, 46, 0.2);
+  box-shadow: 0 0 0 4px var(--c-notte), 0 0 0 5px rgba(200, 160, 46, 0.35);
 }
 
 .timeline-tappa .anno {
@@ -2088,10 +2077,22 @@ section {
 .gazzetta-cta .btn { margin-top: 18px; }
 
 @media (max-width: 860px) {
-  .timeline-righe { grid-template-columns: 1fr; gap: 34px; }
-  .timeline-linea { display: none; }
-  .timeline-tappa { padding-top: 0; padding-left: 26px; text-align: left; }
-  .timeline-tappa::before { top: 4px; left: 0; transform: none; }
+  .timeline-righe {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-left: 22px;
+  }
+  .timeline-linea {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, transparent, var(--c-oro) 6%, var(--c-oro) 94%, transparent);
+  }
+  .timeline-tappa { text-align: left; padding: 18px 18px 18px 26px; }
+  .timeline-tappa::before { top: 24px; left: -22px; transform: none; }
   .stat-blocchi { grid-template-columns: 1fr; max-width: 340px; }
   .anniversario-date-riga { flex-direction: column; gap: 8px; }
   .anniversario-date-linea { width: 1px; height: 26px; }
@@ -2103,17 +2104,19 @@ section {
    ========================================================================== */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
+
+.news-grid--2col { grid-template-columns: repeat(2, 1fr); }
 
 .news-card {
   display: flex;
   flex-direction: column;
   background: var(--c-bianco-puro);
   border-radius: var(--radius-m);
-  padding: 26px 26px 22px;
-  border: 1px solid rgba(9, 12, 22, 0.07);
+  padding: 28px 26px 24px;
+  border: 1px solid rgba(9, 12, 22, 0.08);
   box-shadow: var(--shadow-s);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   height: 100%;
@@ -2128,15 +2131,17 @@ a.news-card:hover {
 .news-card-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(9, 12, 22, 0.07);
 }
 
 .news-categoria {
   font-family: var(--font-sport);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   color: var(--c-oro-scuro);
   border: 1px solid rgba(200, 160, 46, 0.35);
   padding: 4px 10px;
@@ -2149,31 +2154,26 @@ a.news-card:hover {
   letter-spacing: 0.08em;
   font-size: 0.6rem;
   color: var(--c-rosso);
+  margin-left: auto;
 }
 
 .news-titolo {
   font-family: var(--font-display);
-  font-size: 1.16rem;
-  line-height: 1.28;
-  margin-top: 14px;
+  font-size: 1.18rem;
+  line-height: 1.3;
+  margin-top: 16px;
 }
 
 .news-estratto {
   font-size: 0.88rem;
   color: var(--c-testo-scuro-muto);
-  line-height: 1.55;
-  margin-top: 8px;
+  line-height: 1.6;
+  margin-top: 10px;
   flex-grow: 1;
 }
 
 .news-card-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
   margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(9, 12, 22, 0.07);
 }
 
 .news-data {
@@ -2192,6 +2192,8 @@ a.news-card:hover {
   color: var(--c-oro-scuro);
 }
 
+a.news-card:hover .news-link { color: var(--c-oro); }
+
 .news-link--statica { color: var(--c-testo-scuro-muto); }
 
 .news-sezione-foot {
@@ -2199,9 +2201,36 @@ a.news-card:hover {
   margin-top: 44px;
 }
 
-@media (max-width: 760px) {
-  .news-grid { grid-template-columns: 1fr; }
+@media (max-width: 980px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+@media (max-width: 760px) {
+  .news-grid,
+  .news-grid--2col { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   22b. HOME — invito editoriale alla Gazzetta (blocco distinto dalle news)
+   ========================================================================== */
+.gazzetta-invito {
+  background: var(--c-notte);
+  color: var(--c-bianco-puro);
+}
+
+.gazzetta-invito-box {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.gazzetta-invito-box .section-title { color: var(--c-bianco-puro); }
+.gazzetta-invito-box .section-lede {
+  color: var(--c-testo-muto);
+  margin-left: auto;
+  margin-right: auto;
+}
+.gazzetta-invito-box .btn { margin-top: 30px; }
 
 /* ==========================================================================
    23. GAZZETTA — articolo in evidenza
