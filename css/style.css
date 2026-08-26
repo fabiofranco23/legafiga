@@ -297,14 +297,26 @@ table {
   height: var(--header-h);
   display: flex;
   align-items: center;
+  border-bottom: 1px solid rgba(200, 160, 46, 0.14);
+}
+
+/* Il blur vive in uno pseudo-elemento, non sull'header stesso: applicare
+   backdrop-filter direttamente su .site-header lo trasformerebbe in un nuovo
+   "containing block" per i suoi discendenti position:fixed — compreso il
+   menu mobile — facendolo collassare ad altezza zero. Isolare il filtro qui
+   evita il problema alla radice, mantenendo lo stesso effetto visivo. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(9, 12, 22, 0.68);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid rgba(200, 160, 46, 0.14);
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s ease;
 }
 
-.site-header.is-scrolled {
+.site-header.is-scrolled::before {
   background: rgba(9, 12, 22, 0.92);
 }
 
@@ -446,7 +458,6 @@ table {
 /* -- 7. HERO -------------------------------------------------------------- */
 .hero {
   position: relative;
-  min-height: 92vh;
   display: flex;
   align-items: center;
   padding-top: var(--header-h);
@@ -469,10 +480,10 @@ table {
 
 .hero-sigillo {
   position: absolute;
-  right: -120px;
+  right: -160px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.9;
+  opacity: 0.55;
   animation: girare 90s linear infinite;
 }
 
@@ -484,37 +495,45 @@ table {
 .hero-inner {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  text-align: center;
-  padding: 74px 0 90px;
+  gap: 40px;
+  padding: 84px 0;
+}
+
+.hero-eyebrow {
+  margin-bottom: 18px;
+}
+
+.hero-logo-col {
+  display: flex;
+  justify-content: center;
 }
 
 .hero-logo-wrap {
   position: relative;
-  margin-bottom: 34px;
 }
 
 .hero-logo-wrap::before {
   content: "";
   position: absolute;
-  inset: -30px;
+  inset: -14%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 160, 46, 0.28), transparent 68%);
+  background: radial-gradient(circle, rgba(200, 160, 46, 0.24), transparent 68%);
   filter: blur(2px);
 }
 
 .hero-logo {
   position: relative;
-  width: 108px;
-  height: 108px;
-  border-radius: 20px;
+  width: clamp(220px, 22vw, 300px);
+  height: clamp(220px, 22vw, 300px);
+  border-radius: 28px;
   overflow: hidden;
   border: 1.5px solid var(--c-oro);
   box-shadow: var(--shadow-oro);
   background: var(--c-bianco-puro);
-  padding: 12px;
+  padding: 8%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -529,7 +548,7 @@ table {
 .hero-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(3rem, 9vw, 6.4rem);
+  font-size: clamp(3.4rem, 6.4vw, 5.6rem);
   line-height: 0.96;
   letter-spacing: 0.01em;
   background: linear-gradient(120deg, #ffffff 35%, var(--c-oro-chiaro) 65%, var(--c-oro) 100%);
@@ -542,9 +561,9 @@ table {
   font-family: var(--font-sport);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: clamp(0.86rem, 1.6vw, 1.05rem);
+  font-size: clamp(0.86rem, 1.3vw, 1.02rem);
   color: var(--c-testo-chiaro);
-  margin-top: 14px;
+  margin-top: 12px;
   font-weight: 400;
 }
 
@@ -552,37 +571,36 @@ table {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
   color: var(--c-oro-chiaro);
-  margin-top: 34px;
-  position: relative;
-  padding-bottom: 22px;
+  margin-top: 30px;
 }
 
-.hero-motto::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--c-oro), transparent);
+.hero-motto-label {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+  color: var(--c-testo-muto);
+  margin-top: 8px;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 36px;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.hero-actions .btn {
+  flex: 0 0 auto;
+  min-width: 190px;
 }
 
 .hero-stats {
   display: flex;
-  justify-content: center;
   gap: 34px;
-  margin-top: 58px;
+  margin-top: 48px;
   flex-wrap: wrap;
 }
 
@@ -607,7 +625,7 @@ section {
 }
 
 .section-pad {
-  padding: 108px 0;
+  padding: 96px 0;
 }
 
 .section-scura {
@@ -801,6 +819,8 @@ section {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
+  max-width: 1160px;
+  margin: 0 auto;
 }
 
 .accesso-card {
@@ -821,10 +841,15 @@ section {
   border-color: rgba(200, 160, 46, 0.4);
 }
 
+/* Blocco icona: dimensione fissa e non negoziabile del contenitore. */
 .accesso-icona {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  max-width: 48px;
+  max-height: 48px;
+  border-radius: 13px;
   background: linear-gradient(160deg, var(--c-notte-2), var(--c-antracite-2));
   border: 1px solid var(--c-oro);
   display: flex;
@@ -832,30 +857,42 @@ section {
   justify-content: center;
   color: var(--c-oro-chiaro);
   flex: none;
+  overflow: hidden;
 }
 
-.accesso-icona svg { width: 24px; height: 24px; }
+/* Regola difensiva: qualunque icona (svg o img) dentro .accesso-icona resta
+   sempre a dimensione fissa, indipendentemente da eventuali regole globali
+   su img/svg altrove nel foglio di stile. */
+.accesso-icona svg,
+.accesso-icona img {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: 22px !important;
+  max-height: 22px !important;
+  flex: none;
+  display: block;
+}
 
 .accesso-card h4 {
   font-family: var(--font-display);
-  font-size: 1.18rem;
-  margin-top: 20px;
+  font-size: 1.14rem;
+  margin-top: 18px;
 }
 
 .accesso-card p {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--c-testo-scuro-muto);
   line-height: 1.55;
-  margin-top: 10px;
+  margin-top: 8px;
   flex-grow: 1;
 }
 
 .accesso-link {
-  margin-top: 20px;
+  margin-top: 18px;
   font-family: var(--font-sport);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--c-oro-scuro);
   display: inline-flex;
   align-items: center;
@@ -976,10 +1013,30 @@ section {
   gap: 10px;
 }
 
+.motto-blocco {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
 .footer-bottom .motto {
   font-family: var(--font-display);
   font-style: italic;
   color: var(--c-oro-chiaro);
+}
+
+.motto-label {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  color: var(--c-testo-muto);
+  margin-top: 3px;
+}
+
+@media (max-width: 620px) {
+  .motto-blocco { align-items: flex-start; text-align: left; }
 }
 
 /* -- 13. REVEAL ON SCROLL -----------------------------------------------------*/
@@ -1038,7 +1095,10 @@ section {
     padding: 14px 30px;
   }
 
-  .hero-inner { grid-template-columns: 1fr; padding-bottom: 64px; }
+  .hero-inner { grid-template-columns: 1fr; padding-bottom: 64px; text-align: center; }
+  .hero-logo-col { order: -1; margin-bottom: 8px; }
+  .hero-actions { justify-content: center; }
+  .hero-stats { justify-content: center; }
   .hero-sigillo { display: none; }
   .og-card--presidente { min-width: 0; width: 100%; }
   .cta-banner { flex-direction: column; align-items: flex-start; }
@@ -1772,4 +1832,577 @@ section {
 
 @media (max-width: 420px) {
   .squadre-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   21. ANNIVERSARIO / HALL OF FAME (Home)
+   ========================================================================== */
+.anniversario {
+  position: relative;
+  background: radial-gradient(120% 100% at 50% 0%, #0d1120 0%, var(--c-notte) 55%, #05070d 100%);
+  color: var(--c-bianco-puro);
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+.anniversario-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(1100px, 140vw);
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+  pointer-events: none;
+  filter: grayscale(1);
+}
+
+.anniversario-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.anniversario-date-riga {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--c-testo-muto);
+}
+
+.anniversario-date-riga strong {
+  color: var(--c-oro-chiaro);
+}
+
+.anniversario-date-linea {
+  width: 70px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-oro), transparent);
+}
+
+.anniversario-cifra {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.anniversario-cifra .numero {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(5rem, 14vw, 9.5rem);
+  line-height: 0.85;
+  background: linear-gradient(120deg, #ffffff 30%, var(--c-oro-chiaro) 70%, var(--c-oro) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.anniversario-cifra .parola {
+  display: block;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+  color: var(--c-testo-chiaro);
+  margin-top: 4px;
+}
+
+.anniversario-titolo {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+  margin-top: 18px;
+}
+
+.anniversario-tagline {
+  text-align: center;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86rem;
+  color: var(--c-testo-muto);
+  margin-top: 12px;
+}
+
+.anniversario-motto {
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+  color: var(--c-oro-chiaro);
+  margin-top: 40px;
+}
+
+.anniversario-motto-label {
+  text-align: center;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  color: var(--c-testo-muto);
+  margin-top: 8px;
+}
+
+/* -- statistiche 18 / 1 / infinito -- */
+.stat-blocchi {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  max-width: 900px;
+  margin: 64px auto 0;
+}
+
+.stat-blocco {
+  text-align: center;
+  padding: 30px 20px;
+  border: 1px solid rgba(200, 160, 46, 0.22);
+  border-radius: var(--radius-m);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.stat-blocco .numero {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.4vw, 3.4rem);
+  color: var(--c-oro-chiaro);
+  line-height: 1;
+}
+
+.stat-blocco .etichetta {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: var(--c-testo-muto);
+}
+
+/* -- timeline storica -- */
+.timeline {
+  margin-top: 84px;
+  position: relative;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.timeline-linea {
+  position: absolute;
+  top: 11px;
+  left: 4%;
+  right: 4%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-oro) 8%, var(--c-oro) 92%, transparent);
+}
+
+.timeline-righe {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  position: relative;
+}
+
+.timeline-tappa {
+  text-align: center;
+  padding-top: 30px;
+  position: relative;
+}
+
+.timeline-tappa::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c-oro);
+  box-shadow: 0 0 0 4px rgba(200, 160, 46, 0.2);
+}
+
+.timeline-tappa .anno {
+  font-family: var(--font-display);
+  color: var(--c-oro-chiaro);
+  font-size: 1.2rem;
+}
+
+.timeline-tappa .titolo {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.82rem;
+  margin-top: 8px;
+  color: var(--c-bianco-puro);
+}
+
+.timeline-tappa p {
+  margin-top: 8px;
+  font-size: 0.84rem;
+  color: var(--c-testo-muto);
+  line-height: 1.5;
+}
+
+/* -- invito editoriale alla Gazzetta -- */
+.gazzetta-cta {
+  margin-top: 80px;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(160deg, var(--c-antracite-2), var(--c-notte));
+  border: 1px solid rgba(200, 160, 46, 0.3);
+  border-radius: var(--radius-l);
+  padding: 44px 48px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.gazzetta-cta-icona {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  border: 1px solid var(--c-oro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-oro-chiaro);
+}
+
+.gazzetta-cta-icona svg { width: 26px; height: 26px; max-width: 26px; max-height: 26px; }
+
+.gazzetta-cta h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+}
+
+.gazzetta-cta p {
+  margin-top: 8px;
+  color: var(--c-testo-muto);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.gazzetta-cta .btn { margin-top: 18px; }
+
+@media (max-width: 860px) {
+  .timeline-righe { grid-template-columns: 1fr; gap: 34px; }
+  .timeline-linea { display: none; }
+  .timeline-tappa { padding-top: 0; padding-left: 26px; text-align: left; }
+  .timeline-tappa::before { top: 4px; left: 0; transform: none; }
+  .stat-blocchi { grid-template-columns: 1fr; max-width: 340px; }
+  .anniversario-date-riga { flex-direction: column; gap: 8px; }
+  .anniversario-date-linea { width: 1px; height: 26px; }
+  .gazzetta-cta { flex-direction: column; text-align: center; padding: 34px 26px; }
+}
+
+/* ==========================================================================
+   22. NEWS — card condivise (Home + Gazzetta)
+   ========================================================================== */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--c-bianco-puro);
+  border-radius: var(--radius-m);
+  padding: 26px 26px 22px;
+  border: 1px solid rgba(9, 12, 22, 0.07);
+  box-shadow: var(--shadow-s);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  height: 100%;
+}
+
+a.news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-m);
+  border-color: rgba(200, 160, 46, 0.4);
+}
+
+.news-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.news-categoria {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.66rem;
+  color: var(--c-oro-scuro);
+  border: 1px solid rgba(200, 160, 46, 0.35);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.news-tag-evidenza {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.6rem;
+  color: var(--c-rosso);
+}
+
+.news-titolo {
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  line-height: 1.28;
+  margin-top: 14px;
+}
+
+.news-estratto {
+  font-size: 0.88rem;
+  color: var(--c-testo-scuro-muto);
+  line-height: 1.55;
+  margin-top: 8px;
+  flex-grow: 1;
+}
+
+.news-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(9, 12, 22, 0.07);
+}
+
+.news-data {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.64rem;
+  color: var(--c-testo-scuro-muto);
+}
+
+.news-link {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.7rem;
+  color: var(--c-oro-scuro);
+}
+
+.news-link--statica { color: var(--c-testo-scuro-muto); }
+
+.news-sezione-foot {
+  text-align: center;
+  margin-top: 44px;
+}
+
+@media (max-width: 760px) {
+  .news-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   23. GAZZETTA — articolo in evidenza
+   ========================================================================== */
+.gazzetta-evidenza {
+  background: var(--c-notte);
+  color: var(--c-bianco-puro);
+  border-radius: var(--radius-l);
+  padding: 50px;
+  border: 1px solid rgba(200, 160, 46, 0.25);
+  margin-bottom: 60px;
+}
+
+.evidenza-kicker {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.74rem;
+  color: var(--c-oro-chiaro);
+}
+
+.evidenza-titolo {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin-top: 14px;
+  line-height: 1.15;
+}
+
+.evidenza-estratto {
+  margin-top: 16px;
+  color: var(--c-testo-muto);
+  max-width: 62ch;
+  line-height: 1.65;
+}
+
+.evidenza-meta {
+  margin-top: 18px;
+  display: flex;
+  gap: 16px;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  color: var(--c-testo-muto);
+}
+
+.gazzetta-evidenza .btn { margin-top: 26px; }
+
+/* ==========================================================================
+   24. PAGINA ARTICOLO
+   ========================================================================== */
+.articolo-header {
+  padding: calc(var(--header-h) + 60px) 0 20px;
+  background: linear-gradient(180deg, var(--c-notte), var(--c-notte-2));
+  color: var(--c-bianco-puro);
+}
+
+.articolo-occhiello {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+  color: var(--c-testo-muto);
+  margin-top: 16px;
+}
+
+.articolo-titolo-principale {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  line-height: 1.06;
+  margin-top: 10px;
+  max-width: 20ch;
+}
+
+.articolo-meta {
+  margin-top: 22px;
+  padding-bottom: 34px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+  color: var(--c-testo-muto);
+}
+
+.articolo-autore { color: var(--c-oro-chiaro); }
+.puntino-sep { opacity: 0.5; }
+
+.articolo-corpo {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 0;
+  font-size: 1.06rem;
+  line-height: 1.85;
+  color: #262a36;
+}
+
+.articolo-corpo p { margin-bottom: 22px; }
+.articolo-corpo p:first-of-type { font-size: 1.16rem; }
+
+.articolo-nav {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: stretch;
+  padding-bottom: 70px;
+}
+
+.articolo-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px;
+  border-radius: var(--radius-m);
+  border: 1px solid rgba(9, 12, 22, 0.1);
+  font-size: 0.86rem;
+}
+
+.articolo-nav-link span {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.64rem;
+  color: var(--c-testo-scuro-muto);
+}
+
+.articolo-nav-link strong {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+}
+
+.articolo-nav-next { text-align: right; align-items: flex-end; }
+.articolo-nav-disabilitato { opacity: 0.4; }
+
+.articolo-nav-torna {
+  align-self: center;
+  text-align: center;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--c-oro-scuro);
+  padding: 18px 14px;
+  white-space: nowrap;
+}
+
+.articolo-correlati-wrap {
+  background: var(--c-crema);
+  padding: 70px 0;
+}
+
+@media (max-width: 760px) {
+  .articolo-nav { grid-template-columns: 1fr; }
+  .articolo-nav-next { text-align: left; align-items: flex-start; }
+  .gazzetta-evidenza { padding: 32px 26px; }
+}
+
+/* -- 25. ARTICOLO — elementi tipografici speciali (Diciottesimo Interludio) -- */
+.articolo-corpo .articolo-verso {
+  display: block;
+  text-align: center;
+  font-style: italic;
+  color: var(--c-testo-scuro-muto);
+  line-height: 1.8;
+}
+
+.articolo-corpo p:has(.articolo-verso) {
+  border-bottom: 1px solid rgba(9, 12, 22, 0.1);
+  padding-bottom: 30px;
+}
+
+.articolo-corpo .articolo-cita-grande {
+  display: block;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: italic;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  color: var(--c-notte);
+  padding: 10px 0;
+}
+
+.articolo-corpo p:has(.articolo-cita-grande) {
+  border-top: 1px solid rgba(9, 12, 22, 0.1);
+  border-bottom: 1px solid rgba(9, 12, 22, 0.1);
+  padding: 26px 0;
+}
+
+.articolo-corpo .articolo-cita-arancio {
+  display: block;
+  font-style: italic;
+  color: var(--c-oro-scuro);
+}
+
+.articolo-corpo .articolo-fine {
+  display: block;
+  text-align: right;
+  font-style: italic;
+  color: var(--c-testo-scuro-muto);
 }
