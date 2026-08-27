@@ -17,19 +17,19 @@ var FIGA_TEAM = [
   {
     name: "Giuseppe Aglialoro",
     team: "Shakhtar dD",
-    photo: "image/foto giuseppe.jpg",
+    photo: "image/foto giuseppe.jpeg",
     description: "Presidente, Presidentissimo! Superlativo assoluto.\n\nFondatore della Lega ed indiscusso dominatore dei mercati negli anni, riuscirà a tornare alla vittoria dopo l\u2019ultimo posto della stagione 2025/2026?"
   },
   {
     name: "Dario Pollarolo",
     team: "S-O- Tagliapietre",
-    photo: "image/foto pollo.jpg",
+    photo: "image/foto pollo.jpeg",
     description: "La polemica.\n\nSe cerchi \u2018\u2019polemica\u2018\u2019 sul dizionario Treccani troverai la sua foto.\n\nFantallenatore innovatore che durante i mercati sposta calciatori come fossero marittimi alla deriva!"
   },
   {
     name: "Andrea Aglialoro",
     team: "Derry Maine",
-    photo: "image/foto andrea.jpg",
+    photo: "image/foto andrea.jpeg",
     description: "Clown ballerino.\n\nOggi da annoverare tra le vecchie glorie come furono tanti compianti fenomeni come Alexinho. Torner\u00e0 quello di un tempo? Speriamo di no."
   },
   {
@@ -41,25 +41,25 @@ var FIGA_TEAM = [
   {
     name: "Mauro Piazza",
     team: "River Plaza",
-    photo: "image/foto mauro.jpg",
+    photo: "image/foto mauro.jpeg",
     description: "Uno come te, un poeta!\n\nOgni anno fa squadre alle quali non si darebbe un euro e ad anni alterni vince dando cinquanta punti al secondo! L\u2019acqua di mare, il sole e la miscela lo rendono il bagnino benzinaio pi\u00f9 amato dagli italiani."
   },
   {
     name: "Dario Scafidi",
     team: "LaughTale",
-    photo: "image/foto scafo.jpg",
+    photo: "image/foto scafo.jpeg",
     description: "Lui dice NO!\n\nMembro pi\u00f9 conservatore della lega! Vede ogni piccola modifica del regolamento come un affronto quasi personale. Grande talent scout ed anche quest\u2019anno, come ogni anno, questo \u00e8 il suo anno!"
   },
   {
     name: "Riccardo Rubino",
     team: "Dnipork",
-    photo: "image/foto riccardo.jpg",
+    photo: "image/foto riccardo.jpeg",
     description: "Lo sceriffo.\n\nCon gli ultimi aggiornamenti regolamentari sar\u00e0 il vigilante notturno della lega.\n\nRicordato pi\u00f9 per il record di ginger zero consumati in poche ore che per i titoli vinti."
   },
   {
     name: "Marco Polizzi",
     team: "Aston Pirla",
-    photo: "image/foto marco.jpg",
+    photo: "image/foto marco.jpeg",
     description: "Scuola di polizia!\n\nPoliziotto nella vita, distillatore di amari per passione.\n\nHa gi\u00e0 annunciato che tenter\u00e0 di alzare il tasso alcolemico del gruppo per strappare la vittoria."
   }
 ];
