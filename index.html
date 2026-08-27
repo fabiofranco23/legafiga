@@ -99,44 +99,79 @@
   <!-- LA FEDERAZIONE -->
   <section id="federazione" class="section-pad">
     <div class="container">
-      <div class="federazione-grid">
-        <div class="reveal">
-          <span class="eyebrow">Chi siamo</span>
-          <h2 class="section-title">La Federazione</h2>
-          <p class="section-lede">
-            La F.I.G.A. è l'organo ufficiale che governa la competizione: custodisce il
-            regolamento, supervisiona i mercati e garantisce il corretto svolgimento
-            della stagione 2026-27. Con la serietà di un'istituzione e lo spirito di
-            chi sa che, in fondo, si gioca per la gloria del bar.
-          </p>
+      <div class="federazione-testo reveal">
+        <span class="eyebrow">Chi siamo</span>
+        <h2 class="section-title">La Federazione</h2>
+        <p class="section-lede">
+          La F.I.G.A. è l'organo ufficiale che governa la competizione: custodisce il
+          regolamento, supervisiona i mercati e garantisce il corretto svolgimento
+          della stagione 2026-27. Con la serietà di un'istituzione e lo spirito di
+          chi sa che, in fondo, si gioca per la gloria del bar.
+        </p>
 
-          <div class="pilastri">
-            <div class="pilastro">
-              <span class="pilastro-num">01</span>
-              <h4>Regolamento</h4>
-              <p>Uno statuto ufficiale, quasi vero. Ogni cambio, ogni mercato, ogni polemica ha una norma di riferimento.</p>
-            </div>
-            <div class="pilastro">
-              <span class="pilastro-num">02</span>
-              <h4>Competizioni</h4>
-              <p>Campionato, coppe interne e trofei minori: undici manifestazioni ufficiali, una sola classifica che conta davvero.</p>
-            </div>
-            <div class="pilastro">
-              <span class="pilastro-num">03</span>
-              <h4>Sala Stampa</h4>
-              <p>La Gazzetta del Maine racconta mercati, polemiche e decisioni disciplinari con il tono di un vero giornale sportivo.</p>
-            </div>
+        <div class="pilastri">
+          <div class="pilastro">
+            <span class="pilastro-num">01</span>
+            <h4>Regolamento</h4>
+            <p>Uno statuto ufficiale, quasi vero. Ogni cambio, ogni mercato, ogni polemica ha una norma di riferimento.</p>
+          </div>
+          <div class="pilastro">
+            <span class="pilastro-num">02</span>
+            <h4>Competizioni</h4>
+            <p>Campionato, coppe interne e trofei minori: undici manifestazioni ufficiali, una sola classifica che conta davvero.</p>
+          </div>
+          <div class="pilastro">
+            <span class="pilastro-num">03</span>
+            <h4>Sala Stampa</h4>
+            <p>La Gazzetta del Maine racconta mercati, polemiche e decisioni disciplinari con il tono di un vero giornale sportivo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FANTALLENATORI — SLIDER -->
+  <section class="section-pad section-crema">
+    <div class="container">
+      <div class="section-head center reveal">
+        <span class="eyebrow">La nostra storica lega</span>
+        <h2 class="section-title">Fantallenatori — Ecco i membri della nostra storica lega</h2>
+      </div>
+
+      <div class="fant-slider reveal">
+        <div class="fant-slider-viewport">
+          <div class="fant-slider-track" data-fant-slider-track>
+            <!-- Popolato da js/team.js a partire da js/team-data.js -->
           </div>
         </div>
 
-        <div class="reveal federazione-card">
-          <div class="sigillo" aria-hidden="true"></div>
-          <p class="federazione-quote">
-            <span>"C'è solo un Presidente."</span><br>
-            Sul resto, si può discutere.
-          </p>
-          <p class="federazione-firma">— Motto ufficiale della F.I.G.A.</p>
+        <div class="fant-slider-controls">
+          <button type="button" class="fant-slider-btn" data-fant-slider-prev aria-label="Fantallenatore precedente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <span class="fant-slider-hint">Scorri per vedere tutti gli 8 fantallenatori</span>
+          <button type="button" class="fant-slider-btn" data-fant-slider-next aria-label="Fantallenatore successivo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
         </div>
+
+        <div class="fant-slider-cta">
+          <a href="fantallenatori.html" class="btn btn-oro">Vai alla sezione Fantallenatori →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTTO -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="reveal federazione-card federazione-card--sola">
+        <div class="sigillo" aria-hidden="true"></div>
+        <p class="federazione-quote">
+          <span>"C'è solo un Presidente."</span><br>
+          Sul resto, si può discutere.
+        </p>
+        <p class="federazione-firma">— Motto ufficiale della F.I.G.A.</p>
       </div>
     </div>
   </section>
@@ -219,33 +254,6 @@
   </section>
 
   <!-- FANTALLENATORI — SLIDER -->
-  <section class="section-pad">
-    <div class="container">
-      <div class="section-head center reveal">
-        <span class="eyebrow">La nostra storica lega</span>
-        <h2 class="section-title">Fantallenatori — Ecco i membri della nostra storica lega</h2>
-      </div>
-
-      <div class="fant-slider reveal">
-        <div class="fant-slider-viewport">
-          <div class="fant-slider-track" data-fant-slider-track>
-            <!-- Popolato da js/team.js a partire da js/team-data.js -->
-          </div>
-        </div>
-
-        <div class="fant-slider-controls">
-          <button type="button" class="fant-slider-btn" data-fant-slider-prev aria-label="Fantallenatore precedente">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <span class="fant-slider-hint">Scorri per vedere tutti gli 8 fantallenatori</span>
-          <button type="button" class="fant-slider-btn" data-fant-slider-next aria-label="Fantallenatore successivo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- DALLA GAZZETTA DEL MAINE -->
   <section class="section-pad gazzetta-invito">
     <div class="container">
