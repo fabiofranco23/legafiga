@@ -378,19 +378,20 @@ table {
 .main-nav ul {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 2px;
 }
 
 .main-nav a {
   font-family: var(--font-sport);
   text-transform: uppercase;
-  letter-spacing: 0.07em;
-  font-size: 0.86rem;
+  letter-spacing: 0.03em;
+  font-size: 0.72rem;
   color: var(--c-testo-muto);
-  padding: 10px 16px;
+  padding: 8px 10px;
   border-radius: var(--radius-pill);
   transition: color 0.25s ease, background 0.25s ease;
   display: inline-block;
+  white-space: nowrap;
 }
 
 .main-nav a:hover {
@@ -453,6 +454,13 @@ table {
   font-size: 0.86rem;
   letter-spacing: 0.01em;
   white-space: nowrap;
+}
+
+/* Con l'aggiunta di nuove voci di menu, il motto decorativo in header
+   cede il passo alla navigazione già agli schermi medio-grandi: la nav
+   resta sempre leggibile su una riga sola, senza sovrapposizioni. */
+@media (max-width: 1550px) {
+  .header-motto { display: none; }
 }
 
 /* -- 7. HERO -------------------------------------------------------------- */
@@ -1042,7 +1050,10 @@ section {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
-@media (max-width: 860px) {
+/* Con l'aggiunta di nuove voci, la nav desktop diventa stretta prima del
+   resto del layout mobile: il collasso a hamburger scatta un po' prima
+   (1100px) per restare sempre su una riga sola, leggibile, senza tagli. */
+@media (max-width: 1180px) {
   .header-cta .btn,
   .header-motto { display: none; }
   .hamburger { display: inline-flex; }
@@ -1078,7 +1089,9 @@ section {
     font-size: 1.4rem;
     padding: 14px 30px;
   }
+}
 
+@media (max-width: 860px) {
   .hero-inner { padding-bottom: 56px; }
   .hero-actions { justify-content: center; }
   .hero-stats { justify-content: center; }
@@ -1191,6 +1204,23 @@ section {
   color: var(--c-bianco-puro);
   background: linear-gradient(150deg, var(--c-notte-2), var(--c-antracite-2));
   border: 2px solid var(--c-oro);
+  position: relative;
+  overflow: hidden;
+  flex: none;
+}
+
+.cartellino-iniziali {
+  position: relative;
+  z-index: 1;
+}
+
+.cartellino-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
 }
 
 .cartellino-squadra {
@@ -1214,6 +1244,25 @@ section {
   color: var(--c-testo-scuro-muto);
 }
 
+.cartellino-descrizione {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(9, 12, 22, 0.08);
+  text-align: left;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: var(--c-testo-scuro-muto);
+}
+
+.cartellino-descrizione p { margin-bottom: 10px; }
+.cartellino-descrizione p:last-child { margin-bottom: 0; }
+.cartellino-descrizione p:first-child {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--c-testo-scuro);
+  font-size: 0.92rem;
+}
+
 .cartellino-tag {
   display: inline-block;
   margin-top: 16px;
@@ -1225,6 +1274,73 @@ section {
   border: 1px solid rgba(27, 122, 76, 0.35);
   padding: 4px 12px;
   border-radius: var(--radius-pill);
+}
+
+/* -- 26. SLIDER FANTALLENATORI (Home) -----------------------------------------*/
+.fant-slider { position: relative; }
+
+.fant-slider-viewport {
+  max-width: 1040px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.fant-slider-track {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 6px 6px 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.fant-slider-track::-webkit-scrollbar { display: none; }
+
+.fant-slider-track .cartellino {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+}
+
+.fant-slider-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.fant-slider-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(9, 12, 22, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-testo-scuro);
+  transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  background: var(--c-bianco-puro);
+}
+
+.fant-slider-btn:hover {
+  border-color: var(--c-oro);
+  color: var(--c-oro-scuro);
+  transform: translateY(-2px);
+}
+
+.fant-slider-btn svg { width: 18px; height: 18px; }
+
+.fant-slider-hint {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  color: var(--c-testo-scuro-muto);
+}
+
+@media (max-width: 620px) {
+  .fant-slider-track .cartellino { flex-basis: 84vw; }
 }
 
 /* -- 17. REGOLAMENTO ----------------------------------------------------------*/
@@ -2434,4 +2550,144 @@ a.news-card:hover .news-link { color: var(--c-oro); }
   text-align: right;
   font-style: italic;
   color: var(--c-testo-scuro-muto);
+}
+
+/* ==========================================================================
+   27. PAGINE VUOTE (Documenti, Moduli Bonus)
+   ========================================================================== */
+.pagina-vuota {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 64px 30px;
+  border: 1px dashed rgba(9, 12, 22, 0.16);
+  border-radius: var(--radius-l);
+}
+
+.pagina-vuota-icona {
+  display: inline-flex;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid rgba(200, 160, 46, 0.4);
+  align-items: center;
+  justify-content: center;
+  color: var(--c-oro-scuro);
+  margin-bottom: 20px;
+}
+
+.pagina-vuota-icona svg { width: 24px; height: 24px; }
+
+.pagina-vuota p {
+  color: var(--c-testo-scuro-muto);
+  line-height: 1.6;
+}
+
+/* -- link esterno nel menu (Lega Fantacalcio) -- */
+.main-nav-esterno::after {
+  content: "↗";
+  margin-left: 5px;
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+/* -- link secondari (Documenti / Moduli Bonus) sotto l'Accesso Rapido -- */
+.link-secondari {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.link-secondario {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--c-testo-scuro-muto);
+  border: 1px solid rgba(9, 12, 22, 0.14);
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.link-secondario:hover {
+  border-color: var(--c-oro);
+  color: var(--c-oro-scuro);
+}
+
+/* ==========================================================================
+   28. CAMBI — card istruzioni aggiornamento
+   ========================================================================== */
+.istruzioni-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--c-bianco-puro);
+  border-radius: var(--radius-l);
+  padding: 44px 46px;
+  box-shadow: var(--shadow-s);
+  border: 1px solid rgba(9, 12, 22, 0.07);
+}
+
+.istruzioni-titolo {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+  margin-top: 10px;
+}
+
+.istruzioni-testo {
+  margin-top: 14px;
+  color: var(--c-testo-scuro-muto);
+  line-height: 1.65;
+}
+
+.istruzioni-campo {
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(9, 12, 22, 0.08);
+}
+
+.istruzioni-label {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.68rem;
+  color: var(--c-oro-scuro);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.istruzioni-valore--oggetto {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--c-testo-scuro);
+}
+
+.istruzioni-esempio {
+  background: var(--c-crema);
+  border: 1px solid rgba(9, 12, 22, 0.08);
+  border-radius: var(--radius-s);
+  padding: 18px 20px;
+  font-family: "Courier New", monospace;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--c-testo-scuro);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.istruzioni-nota-finale {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(9, 12, 22, 0.08);
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  color: var(--c-verde);
+}
+
+@media (max-width: 620px) {
+  .istruzioni-card { padding: 30px 24px; }
 }
