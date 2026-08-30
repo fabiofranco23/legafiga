@@ -2734,6 +2734,12 @@ a.news-card:hover .news-link { color: var(--c-oro); }
   margin-right: auto;
 }
 
+/* Documenti: separazione elegante tra i tre gruppi (Asta Iniziale,
+   Stagione 2026-27, Storia della Lega), scoped a documenti.html. */
+.documenti-gruppo + .documenti-gruppo {
+  margin-top: 100px;
+}
+
 .statuto-card {
   background: var(--c-notte);
   color: var(--c-bianco-puro);
