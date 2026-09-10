@@ -62,6 +62,29 @@ var FIGA_NEWS = [
     ]
   },
   {
+    id: "dnipork-da-record-laughtale-pigliatutto",
+    tipo: "articolo",
+    categoria: "Edizione straordinaria",
+    titolo: "Dnipork da Record, LaughTale Pigliatutto: Partenza col Botto per la XVIII Edizione!",
+    occhiello: "La Gazzetta del Maine — Anno XVIII, N. 001",
+    data: "09/09/2026",
+    autore: "G.M.A.",
+    estratto: "Spettacolo, gol a raffica e verdetti già pesanti nel primo turno di Serie A-no della XVIII edizione della F.I.G.A.",
+    evidenza: false,
+    pdf: "docs/La Gazzetta del Maine - ANNO XVIII - N. 001.pdf",
+    contenuto: [
+      "Il giorno tanto atteso è finalmente giunto. È partita col botto la diciottesima edizione della FIGA, regalando spettacolo, pioggia di gol e verdetti subito pesanti in questo primo turno di Serie A-no.",
+      "A dettare la strada ci pensa una Dnipork spaventosa, che conferma senza nascondersi l'obiettivo di volere conquistare il suo primo, storico titolo. I ragazzi di Sir Daniel firmano una prestazione da record stampando un clamoroso 87 totale, trascinati dalla doppietta del solito L. Martinez e dalla prova monstre di A. Raimondo — autore di una doppietta e incoronato all'unanimità \"Man of the Week FIGA\". A completare il tabellino ci pensa Baturina, per un avvio che suona già come una sentenza.",
+      "Non sappiamo ancora se sarà il suo anno, ma è indiscutibilmente la sua giornata: i bucanieri della LaughTale mettono a segno 3 reti e collezionano un pesante 78,5 di giornata. Un punteggio che riesce nell'impresa, assai rara, di far sorridere il Presidente D. Scafo, ora saldo al secondo posto in classifica. Per la LaughTale si tratta di un avvio da sogno, condito dalla conquista dei primi due trofei stagionali: con un netto 3-1, la compagine di Scafo si aggiudica sia la Supercoppa degli ItaliAni che la Super Cup ai danni dei rivali della River Plaza. Il Poeta Vate, reduce dalla vittoria schiacciante dello scorso campionato, parte decisamente a rilento.",
+      "A chiudere il podio troviamo la SO Tagliapietre di mister Numero Uno (alias \"il Pollo\"). I gol della certezza M. Thuram e della scommessa A. Cissè fanno gongolare il gemello buono, a cui si aggiunge un prezioso +3 di modificatore di difesa grazie agli assist di F. Dimarco e Y. Couto. Una prestazione solida che non fa rimpiangere le pesanti reti di Kvernadze e Maldini, rimasti mestamente in panchina.",
+      "Nel giro di appena due punti e mezzo si accalcano tutte le altre compagini, in una giornata d'esordio dove ogni squadra è riuscita a trovare la via del gol. Meglio la Derry Maine (72,5 punti), spinta dalla rete di M. Hermoso e dall'assist del subentrato R. Mangas (fondamentali per agguantare un ottimo +3 di modificatore). Fanalino di coda a quota 70 punti troviamo invece la squadra del Presidente di Lega, che riprende esattamente da dove aveva concluso la passata stagione.",
+      "Sotto il profilo statistico, la prima giornata regala numeri da capogiro: 14 gol complessivi (di cui soltanto uno arrivato dalla panchina), 12 assist (oltre la metà firmati da difensori) e ben 14 punti totali racimolati col modificatore di difesa, premio a cui non partecipa la sola Laennister, scesa in campo con un modulo a 3 dietro.",
+      "A completare il quadro, ecco i primi verdetti della fase a gironi di Coppa dei Campiani: nel gruppo A squillo della LaughTale che supera lo Shaktar dD (3-1), mentre la Dnipork conferma lo stato di grazia piegando la River Plaza (6-1); nel gruppo B successo perentorio della SO Tagliapietre contro gli Aston Pirla (3-2), mentre finisce in parità la sfida tra Derry Maine e Laennister (2-2).",
+      "Chiudiamo la nostra rassegna stampa riportando il risultato netto di 2-6 per la Dnipork contro la Derry Maine nel primo incontro valido per l'assegnazione del trofeo amichevole Birra Moretti.",
+      "<em>G.M.A.</em>"
+    ]
+  },
+  {
     id: "asta-iniziale-data",
     tipo: "news",
     categoria: "Ultim'ora",

@@ -47,7 +47,22 @@ function renderHomeNews() {
   contenitore.innerHTML = recenti.map(figaCardNews).join("");
 }
 
-/* -- GAZZETTA: articolo in evidenza + elenco news ---------------------------- */
+/* -- GAZZETTA: articoli in evidenza + elenco news ---------------------------- */
+function figaBloccoEvidenza(a) {
+  return (
+    '<div class="gazzetta-evidenza reveal">' +
+      '<span class="evidenza-kicker">' + a.categoria + '</span>' +
+      '<h2 class="evidenza-titolo">' + a.titolo + '</h2>' +
+      '<p class="evidenza-estratto">' + a.estratto + '</p>' +
+      '<div class="evidenza-meta">' +
+        (a.autore ? '<span>' + a.autore + '</span>' : "") +
+        (a.data ? '<span>' + a.data + '</span>' : "") +
+      '</div>' +
+      '<a href="articolo.html?id=' + a.id + '" class="btn btn-oro">Leggi l\'articolo completo →</a>' +
+    '</div>'
+  );
+}
+
 function renderGazzetta() {
   var contenitoreNews = document.querySelector("[data-gazzetta-news]");
   var contenitoreEvidenza = document.querySelector("[data-gazzetta-evidenza]");
@@ -57,16 +72,7 @@ function renderGazzetta() {
   var news = FIGA_NEWS.filter(function (n) { return n.tipo === "news"; });
 
   if (contenitoreEvidenza && articoli.length) {
-    var a = articoli[0];
-    contenitoreEvidenza.innerHTML =
-      '<span class="evidenza-kicker">' + a.categoria + '</span>' +
-      '<h2 class="evidenza-titolo">' + a.titolo + '</h2>' +
-      '<p class="evidenza-estratto">' + a.estratto + '</p>' +
-      '<div class="evidenza-meta">' +
-        (a.autore ? '<span>' + a.autore + '</span>' : "") +
-        (a.data ? '<span>' + a.data + '</span>' : "") +
-      '</div>' +
-      '<a href="articolo.html?id=' + a.id + '" class="btn btn-oro">Leggi l\'articolo completo →</a>';
+    contenitoreEvidenza.innerHTML = articoli.map(figaBloccoEvidenza).join("");
   }
 
   if (contenitoreNews) {
@@ -118,7 +124,8 @@ function renderArticolo() {
     '<span class="eyebrow eyebrow--light">' + art.categoria + '</span>' +
     (art.occhiello ? '<p class="articolo-occhiello">' + art.occhiello + '</p>' : "") +
     '<h1 class="articolo-titolo-principale">' + art.titolo + '</h1>' +
-    '<div class="articolo-meta">' + metaBits.join('<span class="puntino-sep">·</span>') + '</div>';
+    '<div class="articolo-meta">' + metaBits.join('<span class="puntino-sep">·</span>') + '</div>' +
+    (art.pdf ? '<a href="' + art.pdf + '" class="btn btn-oro" target="_blank" rel="noopener" style="margin-bottom: 34px;">Scarica l\'articolo →</a>' : "");
 
   var corpoWrap = document.querySelector("[data-articolo-corpo]");
   if (corpoWrap) corpoWrap.innerHTML = corpo;
