@@ -72,7 +72,11 @@ function renderGazzetta() {
   var news = FIGA_NEWS.filter(function (n) { return n.tipo === "news"; });
 
   if (contenitoreEvidenza && articoli.length) {
-    contenitoreEvidenza.innerHTML = articoli.map(figaBloccoEvidenza).join("");
+    // Nella Gazzetta l'ordine visivo è "più recente per primo";
+    // l'ordine cronologico originale (usato per precedente/successivo
+    // nella pagina articolo) resta invariato: si inverte solo qui.
+    var articoliRecenti = articoli.slice().reverse();
+    contenitoreEvidenza.innerHTML = articoliRecenti.map(figaBloccoEvidenza).join("");
   }
 
   if (contenitoreNews) {
