@@ -220,6 +220,14 @@ var FIGA_NEWS = [
     titolo: "FantaLab, l'innovazione del fantacalcio. Si farà mai?",
     data: "Stagione 2026-27",
     estratto: "Il Presidente rimane fermo nella sua posizione: \u201cPreferisco dimettermi come Presidente piuttosto di utilizzare questi mezzi che snaturano il nostro fantacalcio perfetto\u201d, dichiara Giuseppe Aglialoro."
+  },
+  {
+    id: "capocannoniere-rifiutato-raimondo",
+    tipo: "news",
+    categoria: "Mercato",
+    titolo: "Capocannoniere rifiutato: il Presidente dice ancora no a Raimondo",
+    data: "Stagione 2026-27",
+    estratto: "Il Rubi ci riprova e offre uno scambio secco pur di strappare Luiz Nazario Raimondo, capocannoniere della Serie A-no con 7 gol in altrettante presenze, ma il Presidente rifiuta ancora: \u00abGiammai, non ne voglio fuochi di paglia\u00bb. Intanto circola voce di una scommessa personale tra i due, con un Roll\u00f2 col wurstel in palio per chi segner\u00e0 di pi\u00f9 da qui a fine stagione."
   }
 ];
 

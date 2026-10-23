@@ -48,6 +48,15 @@ function renderHomeNews() {
 }
 
 /* -- GAZZETTA: articoli in evidenza + elenco news ---------------------------- */
+/* Nel blocco "in evidenza" la data compare come "Edizione N. ... del ..."
+   quando l'occhiello riporta un numero di edizione (es. "N. 004");
+   altrimenti si mostra semplicemente la data, invariata. */
+function figaEtichettaEdizione(a) {
+  if (!a.data) return "";
+  var match = a.occhiello && a.occhiello.match(/N\.\s*(\d+)/i);
+  return match ? "Edizione N. " + match[1] + " del " + a.data : a.data;
+}
+
 function figaBloccoEvidenza(a) {
   return (
     '<div class="gazzetta-evidenza reveal">' +
@@ -56,7 +65,7 @@ function figaBloccoEvidenza(a) {
       '<p class="evidenza-estratto">' + a.estratto + '</p>' +
       '<div class="evidenza-meta">' +
         (a.autore ? '<span>' + a.autore + '</span>' : "") +
-        (a.data ? '<span>' + a.data + '</span>' : "") +
+        (a.data ? '<span>' + figaEtichettaEdizione(a) + '</span>' : "") +
       '</div>' +
       '<a href="articolo.html?id=' + a.id + '" class="btn btn-oro">Leggi l\'articolo completo →</a>' +
     '</div>'
@@ -77,6 +86,16 @@ function renderGazzetta() {
     // nella pagina articolo) resta invariato: si inverte solo qui.
     var articoliRecenti = articoli.slice().reverse();
     contenitoreEvidenza.innerHTML = articoliRecenti.map(figaBloccoEvidenza).join("");
+
+    // Suggerimento "scorri" per lo slider mobile (nascosto via CSS su desktop).
+    var hintEsistente = contenitoreEvidenza.nextElementSibling;
+    var haGiaHint = hintEsistente && hintEsistente.classList.contains("gazzetta-evidenza-hint");
+    if (articoliRecenti.length > 1 && !haGiaHint) {
+      contenitoreEvidenza.insertAdjacentHTML(
+        "afterend",
+        '<p class="gazzetta-evidenza-hint">Scorri per leggere gli altri articoli →</p>'
+      );
+    }
   }
 
   if (contenitoreNews) {
