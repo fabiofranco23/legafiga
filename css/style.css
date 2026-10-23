@@ -2418,6 +2418,16 @@ a.news-card:hover .news-link { color: var(--c-oro); }
 
 .gazzetta-evidenza .btn { margin-top: 26px; }
 
+.gazzetta-evidenza-hint {
+  display: none;
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  color: var(--c-testo-scuro-muto);
+  text-align: center;
+}
+
 /* ==========================================================================
    24. PAGINA ARTICOLO
    ========================================================================== */
@@ -2550,6 +2560,11 @@ a.news-card:hover .news-link { color: var(--c-oro); }
     flex: 0 0 86vw;
     scroll-snap-align: start;
     margin-bottom: 0;
+  }
+
+  .gazzetta-evidenza-hint {
+    display: block;
+    margin: -22px 0 36px;
   }
 }
 
