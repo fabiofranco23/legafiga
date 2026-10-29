@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=Oswald:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=20261029">
 </head>
 <body>
 
@@ -274,7 +274,19 @@
         <h2 class="section-title">Ultime News dalla Lega</h2>
       </div>
 
-      <div class="news-grid" data-home-news></div>
+      <div class="gazzetta-slider">
+        <div class="gazzetta-slider-viewport">
+          <div class="news-grid" data-home-news></div>
+        </div>
+        <div class="gazzetta-slider-controls">
+          <button type="button" class="fant-slider-btn" data-home-news-prev aria-label="News precedente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="fant-slider-btn" data-home-news-next aria-label="News successiva">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -452,10 +464,10 @@
   </div>
 </footer>
 
-<script src="js/news-data.js"></script>
-<script src="js/news.js"></script>
-<script src="js/team-data.js"></script>
-<script src="js/team.js"></script>
-<script src="js/main.js"></script>
+<script src="js/news-data.js?v=20261029"></script>
+<script src="js/news.js?v=20261029"></script>
+<script src="js/team-data.js?v=20261029"></script>
+<script src="js/team.js?v=20261029"></script>
+<script src="js/main.js?v=20261029"></script>
 </body>
 </html>
