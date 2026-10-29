@@ -2455,10 +2455,11 @@ a.news-card:hover .news-link { color: var(--c-oro); }
   margin-bottom: 0;
 }
 
-/* La griglia "Ultime news" della sola Gazzetta (non la Home): tre card
-   visibili per volta su desktop, che scendono a due e poi a una scorrendo
-   verso schermi più stretti, sempre con le frecce per scorrere. */
-[data-gazzetta-news] {
+/* La griglia "Ultime news" (Gazzetta e Home): tre card visibili per volta
+   su desktop, che scendono a due e poi a una scorrendo verso schermi più
+   stretti, sempre con le frecce per scorrere. */
+[data-gazzetta-news],
+[data-home-news] {
   display: flex;
   grid-template-columns: unset;
   gap: 24px;
@@ -2469,20 +2470,24 @@ a.news-card:hover .news-link { color: var(--c-oro); }
   -ms-overflow-style: none;
 }
 
-[data-gazzetta-news]::-webkit-scrollbar { display: none; }
+[data-gazzetta-news]::-webkit-scrollbar,
+[data-home-news]::-webkit-scrollbar { display: none; }
 
-[data-gazzetta-news] > .news-card {
+[data-gazzetta-news] > .news-card,
+[data-home-news] > .news-card {
   flex: none;
   width: calc((100% - 48px) / 3);
   scroll-snap-align: start;
 }
 
 @media (max-width: 980px) {
-  [data-gazzetta-news] > .news-card { width: calc((100% - 24px) / 2); }
+  [data-gazzetta-news] > .news-card,
+  [data-home-news] > .news-card { width: calc((100% - 24px) / 2); }
 }
 
 @media (max-width: 680px) {
-  [data-gazzetta-news] > .news-card { width: 86%; }
+  [data-gazzetta-news] > .news-card,
+  [data-home-news] > .news-card { width: 86%; }
 }
 
 /* ==========================================================================
