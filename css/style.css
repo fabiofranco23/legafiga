@@ -2418,17 +2418,30 @@ a.news-card:hover .news-link { color: var(--c-oro); }
 
 .gazzetta-evidenza .btn { margin-top: 26px; }
 
-/* L'elenco "Articolo in evidenza" è uno slider orizzontale scorrevole su
-   tutti i formati (stesso principio dello slider Fantallenatori in Home):
-   card a larghezza fissa su desktop, che si restringe entro l'86% della
-   viewport sugli schermi più stretti. */
+/* Wrapper comune degli slider della Gazzetta (articolo in evidenza + ultime
+   news): stesso principio dello slider Fantallenatori in Home — un
+   "viewport" che ritaglia il contenuto e una coppia di frecce per scorrere. */
+.gazzetta-slider { position: relative; }
+
+.gazzetta-slider-viewport { overflow: hidden; }
+
+.gazzetta-slider-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-top: 18px;
+  margin-bottom: 36px;
+}
+
+/* L'elenco "Articolo in evidenza": un solo articolo visibile per volta su
+   tutti i formati, con le frecce per scorrere al precedente/successivo. */
 [data-gazzetta-evidenza] {
   display: flex;
   gap: 18px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 4px 4px 14px;
-  margin-bottom: 14px;
+  padding: 4px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -2436,33 +2449,22 @@ a.news-card:hover .news-link { color: var(--c-oro); }
 [data-gazzetta-evidenza]::-webkit-scrollbar { display: none; }
 
 [data-gazzetta-evidenza] > .gazzetta-evidenza {
-  flex: 0 0 620px;
-  max-width: 86vw;
+  flex: none;
+  width: 100%;
   scroll-snap-align: start;
   margin-bottom: 0;
 }
 
-.gazzetta-evidenza-hint {
-  display: block;
-  font-family: var(--font-sport);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.7rem;
-  color: var(--c-testo-scuro-muto);
-  text-align: center;
-  margin-bottom: 36px;
-}
-
-/* La griglia "Ultime news" della sola Gazzetta (non la Home) diventa uno
-   slider con lo stesso principio. */
+/* La griglia "Ultime news" della sola Gazzetta (non la Home): tre card
+   visibili per volta su desktop, che scendono a due e poi a una scorrendo
+   verso schermi più stretti, sempre con le frecce per scorrere. */
 [data-gazzetta-news] {
   display: flex;
   grid-template-columns: unset;
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 4px 4px 14px;
-  margin-bottom: 14px;
+  padding: 4px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -2470,19 +2472,17 @@ a.news-card:hover .news-link { color: var(--c-oro); }
 [data-gazzetta-news]::-webkit-scrollbar { display: none; }
 
 [data-gazzetta-news] > .news-card {
-  flex: 0 0 340px;
-  max-width: 86vw;
+  flex: none;
+  width: calc((100% - 48px) / 3);
   scroll-snap-align: start;
 }
 
-.gazzetta-news-hint {
-  font-family: var(--font-sport);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.7rem;
-  color: var(--c-testo-scuro-muto);
-  text-align: center;
-  margin-bottom: 20px;
+@media (max-width: 980px) {
+  [data-gazzetta-news] > .news-card { width: calc((100% - 24px) / 2); }
+}
+
+@media (max-width: 680px) {
+  [data-gazzetta-news] > .news-card { width: 86%; }
 }
 
 /* ==========================================================================
