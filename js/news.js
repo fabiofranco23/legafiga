@@ -38,13 +38,22 @@ function figaCardNews(n) {
   );
 }
 
-/* -- HOME: sezione "Dalla Gazzetta del Maine" -------------------------------- */
+/* -- HOME: sezione "Ultime News dalla Lega" ---------------------------------- */
 function renderHomeNews() {
   var contenitore = document.querySelector("[data-home-news]");
   if (!contenitore) return;
 
-  var recenti = FIGA_NEWS.filter(function (n) { return n.tipo === "news"; }).slice(0, 3);
+  // Stesso principio della Gazzetta: tutte le news, più recente per prima,
+  // in uno slider con le frecce (vedi figaWireGazzettaSlider più sotto).
+  var recenti = FIGA_NEWS.filter(function (n) { return n.tipo === "news"; }).slice().reverse();
   contenitore.innerHTML = recenti.map(figaCardNews).join("");
+
+  figaWireGazzettaSlider(
+    "[data-home-news]",
+    ".news-card",
+    "[data-home-news-prev]",
+    "[data-home-news-next]"
+  );
 }
 
 /* -- GAZZETTA: articoli in evidenza + elenco news ---------------------------- */
