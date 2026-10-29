@@ -48,9 +48,17 @@ function renderHomeNews() {
 }
 
 /* -- GAZZETTA: articoli in evidenza + elenco news ---------------------------- */
-/* Nel blocco "in evidenza" la data compare come "Edizione N. ... del ..."
-   quando l'occhiello riporta un numero di edizione (es. "N. 004");
-   altrimenti si mostra semplicemente la data, invariata. */
+/* Etichetta in alto sulla card: "Edizione n°X" quando l'occhiello riporta un
+   numero di edizione (es. "N. 004"); altrimenti si usa la categoria normale
+   (es. per gli speciali senza numero, come il Diciottesimo Interludio). */
+function figaKickerEvidenza(a) {
+  var match = a.occhiello && a.occhiello.match(/N\.\s*0*(\d+)/i);
+  return match ? "Edizione n°" + match[1] : a.categoria;
+}
+
+/* Nella meta sotto l'estratto la data compare come "Edizione N. ... del ..."
+   quando l'occhiello riporta un numero di edizione; altrimenti si mostra
+   semplicemente la data, invariata. */
 function figaEtichettaEdizione(a) {
   if (!a.data) return "";
   var match = a.occhiello && a.occhiello.match(/N\.\s*(\d+)/i);
@@ -60,7 +68,7 @@ function figaEtichettaEdizione(a) {
 function figaBloccoEvidenza(a) {
   return (
     '<div class="gazzetta-evidenza reveal">' +
-      '<span class="evidenza-kicker">' + a.categoria + '</span>' +
+      '<span class="evidenza-kicker">' + figaKickerEvidenza(a) + '</span>' +
       '<h2 class="evidenza-titolo">' + a.titolo + '</h2>' +
       '<p class="evidenza-estratto">' + a.estratto + '</p>' +
       '<div class="evidenza-meta">' +
@@ -70,6 +78,36 @@ function figaBloccoEvidenza(a) {
       '<a href="articolo.html?id=' + a.id + '" class="btn btn-oro">Leggi l\'articolo completo →</a>' +
     '</div>'
   );
+}
+
+/* Collega le frecce prev/next di uno slider della Gazzetta allo scroll
+   orizzontale del relativo "track" (stesso principio di team.js per lo
+   slider Fantallenatori): un click scorre esattamente di una card. */
+function figaWireGazzettaSlider(trackSelector, itemSelector, prevSelector, nextSelector) {
+  var track = document.querySelector(trackSelector);
+  if (!track) return;
+
+  var btnPrev = document.querySelector(prevSelector);
+  var btnNext = document.querySelector(nextSelector);
+
+  function passo() {
+    var item = track.querySelector(itemSelector);
+    if (!item) return 300;
+    var stile = getComputedStyle(track);
+    var gap = parseFloat(stile.columnGap || stile.gap || "0") || 0;
+    return item.getBoundingClientRect().width + gap;
+  }
+
+  if (btnPrev) {
+    btnPrev.addEventListener("click", function () {
+      track.scrollBy({ left: -passo(), behavior: "smooth" });
+    });
+  }
+  if (btnNext) {
+    btnNext.addEventListener("click", function () {
+      track.scrollBy({ left: passo(), behavior: "smooth" });
+    });
+  }
 }
 
 function renderGazzetta() {
@@ -87,15 +125,12 @@ function renderGazzetta() {
     var articoliRecenti = articoli.slice().reverse();
     contenitoreEvidenza.innerHTML = articoliRecenti.map(figaBloccoEvidenza).join("");
 
-    // Suggerimento "scorri" per lo slider (desktop e mobile).
-    var hintEsistente = contenitoreEvidenza.nextElementSibling;
-    var haGiaHint = hintEsistente && hintEsistente.classList.contains("gazzetta-evidenza-hint");
-    if (articoliRecenti.length > 1 && !haGiaHint) {
-      contenitoreEvidenza.insertAdjacentHTML(
-        "afterend",
-        '<p class="gazzetta-evidenza-hint">Scorri per leggere gli altri articoli →</p>'
-      );
-    }
+    figaWireGazzettaSlider(
+      "[data-gazzetta-evidenza]",
+      ".gazzetta-evidenza",
+      "[data-gazzetta-evidenza-prev]",
+      "[data-gazzetta-evidenza-next]"
+    );
   }
 
   if (contenitoreNews) {
@@ -104,14 +139,12 @@ function renderGazzetta() {
     var newsRecenti = news.slice().reverse();
     contenitoreNews.innerHTML = newsRecenti.map(figaCardNews).join("");
 
-    var hintNewsEsistente = contenitoreNews.nextElementSibling;
-    var haGiaHintNews = hintNewsEsistente && hintNewsEsistente.classList.contains("gazzetta-news-hint");
-    if (newsRecenti.length > 1 && !haGiaHintNews) {
-      contenitoreNews.insertAdjacentHTML(
-        "afterend",
-        '<p class="gazzetta-news-hint">Scorri per leggere le altre news →</p>'
-      );
-    }
+    figaWireGazzettaSlider(
+      "[data-gazzetta-news]",
+      ".news-card",
+      "[data-gazzetta-news-prev]",
+      "[data-gazzetta-news-next]"
+    );
   }
 }
 
