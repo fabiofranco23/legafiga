@@ -87,7 +87,7 @@ function renderGazzetta() {
     var articoliRecenti = articoli.slice().reverse();
     contenitoreEvidenza.innerHTML = articoliRecenti.map(figaBloccoEvidenza).join("");
 
-    // Suggerimento "scorri" per lo slider mobile (nascosto via CSS su desktop).
+    // Suggerimento "scorri" per lo slider (desktop e mobile).
     var hintEsistente = contenitoreEvidenza.nextElementSibling;
     var haGiaHint = hintEsistente && hintEsistente.classList.contains("gazzetta-evidenza-hint");
     if (articoliRecenti.length > 1 && !haGiaHint) {
@@ -99,7 +99,19 @@ function renderGazzetta() {
   }
 
   if (contenitoreNews) {
-    contenitoreNews.innerHTML = news.map(figaCardNews).join("");
+    // Anche qui l'ordine visivo è "più recente per primo" (solo nella Gazzetta;
+    // la Home, che mostra le prime 3 news, non viene toccata).
+    var newsRecenti = news.slice().reverse();
+    contenitoreNews.innerHTML = newsRecenti.map(figaCardNews).join("");
+
+    var hintNewsEsistente = contenitoreNews.nextElementSibling;
+    var haGiaHintNews = hintNewsEsistente && hintNewsEsistente.classList.contains("gazzetta-news-hint");
+    if (newsRecenti.length > 1 && !haGiaHintNews) {
+      contenitoreNews.insertAdjacentHTML(
+        "afterend",
+        '<p class="gazzetta-news-hint">Scorri per leggere le altre news →</p>'
+      );
+    }
   }
 }
 

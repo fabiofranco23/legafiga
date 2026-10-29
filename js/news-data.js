@@ -173,6 +173,27 @@ var FIGA_NEWS = [
     ]
   },
   {
+    id: "bip-bip-derry-laughtale-risveglio-scafo-dice-gol",
+    tipo: "articolo",
+    categoria: "Edizione straordinaria",
+    titolo: "Bip Bip Derry! LaughTale, risveglio di fuoco: Scafo dice gol!",
+    occhiello: "La Gazzetta del Maine — Anno XVIII, N. 006",
+    data: "28/10/2026",
+    autore: "G.M.A.",
+    estratto: "La Derry Maine sfiora il 90 e vola al secondo posto grazie alla doppietta a sorpresa di Romano Schmid, mentre la LaughTale si risveglia trascinata da Leonardo Balerdi e Derry e Shakhtar si dividono la vetta della classifica generale.",
+    evidenza: false,
+    pdf: "docs/La Gazzetta del Maine - ANNO XVIII - N. 006.pdf",
+    contenuto: [
+      "La paura in casa Derry non fa 90, ma si ferma a 89,5: un punteggio da paura che profuma tanto di capolavoro. La squadra del Maine si candida ufficialmente e senza più nascondersi come grande protagonista di questa stagione. Un rullo compressore che divora tutto come Il Nulla di Fantasia, trascinato dalla splendida doppietta di Anastasios Douvikas, dal sigillo del pupillo R. Belghali, dall'assist al bacio di A. Diouf e dalla porta inviolata di J. Butez. Ma a rendere leggendaria la domenica in quel del Maine ci pensa un protagonista a sorpresa che porta il Presidente Hanlon a passare dal pianto isterico per gli infortuni last-minute di A. Rabiot e D. Moreira, al sorriso sardonico per l'ingresso in campo del nuovo acquisto Romano Schmid, capace di spaccare la partita con una clamorosa doppietta da subentrato. Risultato? Miglior punteggio di giornata, sorpasso prepotente al secondo posto in classifica di Serie A-no e avvisaglie di tempesta per tutta la concorrenza, pronta a galleggiare lungo i giacigli delle strade invase dallo straripare del fiume Derry.",
+      "Si alza dalle sabbie mobili del fondo della classifica con un colpo di reni da grande squadra la LaughTale. La cura del mercato e le mosse tattiche di D. Scafo restituiscono linfa vitale a un gruppo dato troppo presto per spacciato. Protagonista indiscusso e MW di giornata è stato Leonardo Balerdi, nuovo acquisto e autore di una superba doppietta che fa esplodere i tifosi. A completare l'opera i gol di C. Pulisic e M. Soulè.",
+      "Splendida giornata anche in casa River: la squadra del Poeta-Vate sfodera una prestazione monstre, mettendo a referto ben quattro gol e due assist che brillano come oro colato. Un bottino pesante che vale il momentaneo terzo gradino del podio. Terzo gradino condiviso con gli Aston Pirla: la compagine dell'amato Poliziotto porta a casa un solido 78,5 trascinato dalle giocate di Nikola Vlasic (al suo primo, liberatorio, gol stagionale) e dell'ormai solito Gustavo Varela. Veleggia con autorità sopra quota 70 anche la SO Tagliapietre, che trova una pesantissima doppietta con S. McTominay e la firma d'autore di M. Thuram; decisamente opposta la domenica vissuta sotto la soglia dei 70 punti da Dnipork, Shakhtar dD e Laennister: un terzetto che delude le aspettative con zero gol all'attivo ed una serie di pesantissimi bonus lasciati colpevolmente a muffire in panchina. Fa peggio di tutti l'armata Branca-Fabiozzi che con un misero 67 si aggiudica il peggior punteggio di giornata per la seconda volta consecutiva.",
+      "In Apertura la copertina di giornata se la prende il match spettacolo per eccellenza: il pirotecnico 6-4 con cui la Derry Maine ha regolato la River Plaza in una vera e propria corrida calcistica. Primi tre punti stagionali per la SO Tagliapietre che infligge allo Shakhtar dD la prima battuta d'arresto in questo torneo (2-1 il finale). Vittoria esterna pirotecnica della LaughTale sugli Aston Pirla (3-4), mentre chiudono con un pari (1-1) Laennister e Dnipork, in una sfida davvero povera di emozioni.",
+      "In vetta alla classifica generale regna l'equilibrio assoluto: Derry e Shakhtar condividono fieramente il primato a pari merito con 6 punti complessivi, frutto di due vittorie ed una sconfitta; segue a ruota la Dnipork (5), quindi Laugh-Tale e Laennister (4), ed infine River, Aston e Tagliapietre chiudono la classifica con soli 3 punti.",
+      "Per quanto riguarda le classifiche parallele, resiste al comando della Classifica Formula 1 la Dnipork (387,5 punti), braccata a vista dalla Derry Maine, distante solo 0,5 lunghezze. Dnipork che resiste al comando anche nella classifica principale di Serie A-no, anche se adesso il divario con le immediate inseguitrici inizia a farsi pericolosamente sottile. La stagione è nel vivo: chi avrà la forza di allungare il passo?",
+      "<em>G.M.A.</em>"
+    ]
+  },
+  {
     id: "asta-iniziale-data",
     tipo: "news",
     categoria: "Ultim'ora",
