@@ -2418,14 +2418,71 @@ a.news-card:hover .news-link { color: var(--c-oro); }
 
 .gazzetta-evidenza .btn { margin-top: 26px; }
 
+/* L'elenco "Articolo in evidenza" è uno slider orizzontale scorrevole su
+   tutti i formati (stesso principio dello slider Fantallenatori in Home):
+   card a larghezza fissa su desktop, che si restringe entro l'86% della
+   viewport sugli schermi più stretti. */
+[data-gazzetta-evidenza] {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 4px 14px;
+  margin-bottom: 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+[data-gazzetta-evidenza]::-webkit-scrollbar { display: none; }
+
+[data-gazzetta-evidenza] > .gazzetta-evidenza {
+  flex: 0 0 620px;
+  max-width: 86vw;
+  scroll-snap-align: start;
+  margin-bottom: 0;
+}
+
 .gazzetta-evidenza-hint {
-  display: none;
+  display: block;
   font-family: var(--font-sport);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-size: 0.7rem;
   color: var(--c-testo-scuro-muto);
   text-align: center;
+  margin-bottom: 36px;
+}
+
+/* La griglia "Ultime news" della sola Gazzetta (non la Home) diventa uno
+   slider con lo stesso principio. */
+[data-gazzetta-news] {
+  display: flex;
+  grid-template-columns: unset;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 4px 4px 14px;
+  margin-bottom: 14px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+[data-gazzetta-news]::-webkit-scrollbar { display: none; }
+
+[data-gazzetta-news] > .news-card {
+  flex: 0 0 340px;
+  max-width: 86vw;
+  scroll-snap-align: start;
+}
+
+.gazzetta-news-hint {
+  font-family: var(--font-sport);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  color: var(--c-testo-scuro-muto);
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 /* ==========================================================================
@@ -2539,33 +2596,6 @@ a.news-card:hover .news-link { color: var(--c-oro); }
   .articolo-nav { grid-template-columns: 1fr; }
   .articolo-nav-next { text-align: left; align-items: flex-start; }
   .gazzetta-evidenza { padding: 32px 26px; }
-
-  /* Su mobile l'elenco "Articolo in evidenza" diventa uno slider
-     orizzontale scorrevole (stesso principio dello slider Fantallenatori
-     in Home), invece di card impilate verticalmente. */
-  [data-gazzetta-evidenza] {
-    display: flex;
-    gap: 18px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding: 4px 4px 14px;
-    margin-bottom: 36px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  [data-gazzetta-evidenza]::-webkit-scrollbar { display: none; }
-
-  [data-gazzetta-evidenza] > .gazzetta-evidenza {
-    flex: 0 0 86vw;
-    scroll-snap-align: start;
-    margin-bottom: 0;
-  }
-
-  .gazzetta-evidenza-hint {
-    display: block;
-    margin: -22px 0 36px;
-  }
 }
 
 /* -- 25. ARTICOLO — elementi tipografici speciali (Diciottesimo Interludio) -- */
